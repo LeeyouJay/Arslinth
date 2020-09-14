@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<title>欢迎页面-X-admin2.2</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+		<link rel="stylesheet" th:href="@{/static/css/font.css}">
+		<link rel="stylesheet" th:href="@{/static/css/xadmin.css}">
+		<script th:src="@{/static/js/layui/layui.js}" charset="utf-8"></script>
+		<script type="text/javascript" th:src="@{/static/js/xadmin.js}"></script>
+		<script th:src="@{/static/js/jquery.min.js}"></script>
+		<!--[if lt IE 9]>
+          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+	</head>
+	<body>
+		<div class="x-nav">
+			<span class="layui-breadcrumb">
+				<a>[[${parentName}]]</a>
+				<a>
+				  <cite>[[${menuName}]]</cite></a>
+				<a>当前时间：
+					<cite id="show"></cite></a>
+			</span>
+		    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" >
+		        <i class="layui-icon layui-icon-refresh" style="line-height:30px">刷新</i>
+		    </a>
+		</div>
+		<div class="layui-fluid">
+			<div class="layui-row layui-col-space15">
+				<div class="layui-row layui-col-space10">
+					<div class="layui-col-xs6 layui-col-sm7 layui-col-md3">
+						<div class="layui-card">
+							<div class="layui-card-header">进货额<span class="layui-badge layui-bg-blue layuiadmin-badge">年</span></div>
+							<div class="layui-card-body layuiadmin-card-list">
+								<p class="layuiadmin-big-font" th:text="${totalStock[1]}">9999999</p>
+								<p>总计进货额
+									<span class="layuiadmin-span-color">
+										<i  th:text="${totalStock[0]}"></i>
+										<i class="layui-inline layui-icon layui-icon-rmb"></i>
+									</span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="layui-col-xs6 layui-col-sm7 layui-col-md3">
+						<div class="layui-card">
+							<div class="layui-card-header">销售额<span class="layui-badge layui-bg-blue layuiadmin-badge">年</span></div>
+							<div class="layui-card-body layuiadmin-card-list">
+								<p class="layuiadmin-big-font" th:text="${totalPrice[1]}">9999999</p>
+								<p>总计销售额
+									<span class="layuiadmin-span-color" >
+										<i th:text="${totalPrice[0]}"></i>
+										<i class="layui-inline layui-icon layui-icon-rmb"></i>
+									</span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="layui-col-xs6 layui-col-sm7 layui-col-md3">
+						<div class="layui-card">
+							<div class="layui-card-header">销售量<span class="layui-badge layui-bg-blue layuiadmin-badge">年</span></div>
+							<div class="layui-card-body layuiadmin-card-list">
+								<p class="layuiadmin-big-font" th:text="${totalValue[1]}">9999999</p>
+								<p>总计销售量(包)
+									<span class="layuiadmin-span-color" >
+										<i th:text="${totalValue[0]}"></i>
+										<i class="layui-inline layui-icon layui-icon-cart-simple"></i>
+									</span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="layui-col-xs6 layui-col-sm7 layui-col-md3">
+						<div class="layui-card">
+							<div class="layui-card-header">净利润<span class="layui-badge layui-bg-blue layuiadmin-badge">年</span></div>
+							<div class="layui-card-body layuiadmin-card-list">
+								<p class="layuiadmin-big-font" th:text="${totalEarns[1]}">9999999</p>
+								<p>总计净利润
+									<span class="layuiadmin-span-color" >
+										<i th:text="${totalEarns[0]}"></i>
+										<i class="layui-inline layui-icon layui-icon-rmb"></i>
+									</span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="layui-col-xs6 layui-col-sm7 layui-col-md12">
+						<div class="layui-card">
+							<div class="layui-card-header">全年销售量统计</div>
+							<div class="layui-card-body" style="min-height: 350px;">
+								<div id="main" class="layui-col-sm8" style="height: 350px"></div>
+								<div class="layui-col-sm4" style="height: 280px;">
+									<div class="layuiadmin-card-list" id="main0" style="height: 90px;">
+										
+									</div>
+									<div class="layuiadmin-card-list"  id="main1" style="height: 90px;">
+									
+									</div>
+									<div class="layuiadmin-card-list"  id="main2" style="height: 90px;">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-col-xs6 layui-col-sm7 layui-col-md4">
+						<div class="layui-card">
+							<div class="layui-card-header">销售前五</div>
+							<div class="layui-card-body" style="height: 100px;">
+								
+							</div>
+						</div>
+					</div>
+					<div class="layui-col-xs6 layui-col-sm7 layui-col-md4">
+						<div class="layui-card">
+							<div class="layui-card-header">地区分布</div>
+							<div class="layui-card-body" style="height: 100px;">
+								
+							</div>
+						</div>
+					</div>
+					<div class="layui-col-xs6 layui-col-sm7 layui-col-md4">
+						<div class="layui-card">
+							<div class="layui-card-header">待开发...</div>
+							<div class="layui-card-body" style="height: 100px;">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+	<script th:inline="javascript">
+		var planCharge = [[${cur}]]//本月累计
+		var realCharge = [[${pre}]]//上月累计
+		var typeName = [[${typeName}]]//品种类型
+		var typeValue = [[${typeValue}]]//各个月的数据
+		var seriesForLine =[]
+		for(var type in typeValue){
+			seriesForLine.push(
+				{
+					name: type,
+					type: 'line',
+					smooth: true,
+					data: typeValue[type]
+				}
+			)
+		}
+		window.onload = function() {
+			setInterval(function(){
+				var date=new Date();   
+				var year=date.getFullYear(); 
+				var mon=date.getMonth()+1; 
+				var da=date.getDate();
+				var h=date.getHours();
+				var m=date.getMinutes();
+				var s=date.getSeconds();
+				var d=document.getElementById('show');    
+				d.innerHTML=year+'年'+mon+'月'+da+'日'+' '+h+':'+m+':'+s;  },1000)
+		};
+	</script>
+	<script  th:inline="javascript" th:src="@{/static/js/module/eCharts.js}"></script>
+	<style>
+		.layuiadmin-badge {
+			top: 50%;
+			margin-top: -9px;
+			color: #01AAED;
+			position: absolute;
+			right: 15px;
+		}
+
+		.layuiadmin-card-list {
+			padding: 15px;
+		}
+
+		.layuiadmin-big-font {
+			font-size: 36px;
+			color: #666;
+			line-height: 36px;
+			padding: 5px 0 10px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			word-break: break-all;
+			white-space: nowrap;
+		}
+
+		.layuiadmin-normal-font {
+			padding-bottom: 10px;
+			font-size: 20px;
+			color: #666;
+			line-height: 24px;
+		}
+
+		.layuiadmin-span-color {
+			font-size: 14px;
+			position: absolute;
+			right: 15px;
+		}
+	</style>
+</html>
+

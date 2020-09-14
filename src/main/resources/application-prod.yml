@@ -1,0 +1,40 @@
+# 激活actuator 部分端点
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: info,health,beans
+# 数据库配置
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/thyme?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: thyme
+    password: thyme-root
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    host: localhost
+    port: 6379
+    password: Arslinth
+    timeout: 5000
+#日志输出配置
+logging:
+  config: classpath:log4j2/log4j2-spring-prod.xml
+#SSL证书访问
+server:
+  ssl:
+    key-store: /javaweb/https.jks
+    key-password: Tb5sEP55
+
+file:
+  # 上传的服务器上的映射文件夹
+  accessPath: /uploadimg/
+  #静态资源对外暴露的访问路径
+  staticAccessPath: /uploadimg/**
+  #文件上传目录（注意Linux和Windows上的目录结构不同，文件名不能有中文！！）
+  uploadFolder: /root/uploadFiles/
+
+imgPath: https://chenyi.ink:8600/Arslinth
