@@ -52,9 +52,20 @@
                             </form>
                         </div>
                         <div class="layui-card-body ">
-                            <table class="layui-table"  lay-filter="test" id="tableTest">
-                             
-                            </table>
+                            <div class="layui-tab" lay-filter="test1">
+                                <ul class="layui-tab-title">
+                                    <li class="layui-this" lay-id="orders">出售列表</li>
+                                    <li lay-id="delOrders">删除列表</li>
+                                </ul>
+                                <div class="layui-tab-content">
+                                    <div class="layui-tab-item layui-show">
+                                        <table class="layui-table" lay-filter="test" id="tableTest"></table>
+                                    </div>
+                                    <div class="layui-tab-item">
+                                        <table class="layui-table" lay-filter="test" id="tableTest1"></table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,18 +73,22 @@
         </div>
     </body>
     <script type="text/html" id="barDemo">
-       <a class="layui-btn layui-btn-sm" lay-event="details"><i class="iconfont">&#xe69e;</i>&nbsp;交易明细</a>
+        <a class="layui-btn layui-btn-sm" lay-event="details"><i class="iconfont">&#xe69e;</i>&nbsp;交易明细</a>
     </script>
-
-	<script th:inline="javascript">
-		var context = [[@{
-		    /}]];
-		var searchVO = {
-			"start":"",
-			"end":"",
-			"searchName":"",
-			"other":""
-		};
-	</script>
+    <script type="text/html" id="barDemo1">
+        <a class="layui-btn layui-btn-sm" lay-event="details"><i class="iconfont">&#xe69e;</i>&nbsp;交易明细</a>
+        <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="recovery"><i
+                class="iconfont">&#xe6aa;</i>&nbsp;恢复</a>
+    </script>
+    <script th:inline="javascript">
+        var context = [[@{
+            /}]];
+        var searchVO = {
+            "start": "",
+            "end": "",
+            "searchName": "",
+            "other": ""
+        };
+    </script>
     <script type="text/javascript" th:src="@{/static/js/module/sales/management.js}"></script>
 </html>

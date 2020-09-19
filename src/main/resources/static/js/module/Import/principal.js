@@ -4,30 +4,30 @@
 			var form = layui.form;
 			var index;
 			var username = "";
-			
+
 			getPrincipal(username);
-			
-			function renderTabl(principals){
+
+			function renderTable(principals) {
 				table.render({
-					elem:'#tableTest'
-					,data:principals
-					,cols:[
+					elem: '#tableTest'
+					, data: principals
+					, cols: [
 						[
-							{field:'id', title:'ID',hide:true},
-							{field:'pcpName', width:180,title:'姓名',align: 'center',sort:true},
-							{field:'tel',  minWidth: 50,title:'联系电话'},
-							{field:'address',  minWidth: 80,title:'地址'},
-							{field:'PSBC',  minWidth: 80,title:'邮政卡号'},
-							{field:'RCU',  minWidth: 140,title:'信用卡号'},
-				            {fixed: 'right', title:'操作', toolbar: '#barDemo', width: 200,align: 'center'}
+							{field: 'id', title: 'ID', hide: true},
+							{field: 'pcpName', width: 180, title: '姓名', align: 'center', sort: true},
+							{field: 'tel', minWidth: 50, title: '联系电话'},
+							{field: 'address', minWidth: 80, title: '地址'},
+							{field: 'PSBC', minWidth: 80, title: '邮政卡号'},
+							{field: 'RCU', minWidth: 140, title: '信用卡号'},
+							{fixed: 'right', title: '操作', toolbar: '#barDemo', width: 200, align: 'center'}
 						]
 					]
-				    ,limit:20
-				    ,limits:[20,30,40,50]
-				    ,height:'full-100'
-					,page:true
-					,toolbar:'<div class = "layui-btn-container" > '+
-									'<button class = "layui-btn layui-btn-sm" lay-event = "add"><i class="layui-icon"></i>添加</button>'+
+					, limit: 20
+					, limits: [20, 30, 40, 50]
+					, height: 'full-100'
+					, page: true
+					, toolbar: '<div class = "layui-btn-container" > ' +
+						'<button class = "layui-btn layui-btn-sm" lay-event = "add"><i class="layui-icon"></i>添加</button>' +
 								'</div > '
 				})
 			}
@@ -90,10 +90,10 @@
 					type: 'GET',
 					async: false,
 					success: function(data) {
-						if(data.code === 200){
-						    var principals = data.data.principals;
-							renderTabl(principals);
-						}else{
+						if (data.code === 200) {
+							var principals = data.data.principals;
+							renderTable(principals);
+						} else {
 							layui.layer.msg(data.message);
 						}
 					}

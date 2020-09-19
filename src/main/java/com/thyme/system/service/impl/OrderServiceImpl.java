@@ -35,9 +35,15 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDetailsDao orderDetailsDao;
 
     private final RegionDao regionDao;
+
     @Override
-    public List<OrderList> getOrders(SearchVO searchVO) {
-        return orderDao.getOrders(searchVO.getSearchName(),searchVO.getStart(),searchVO.getEnd(),searchVO.getOther());
+    public List<OrderList> getOrders(int status, SearchVO searchVO) {
+        return orderDao.getOrders(status, searchVO.getSearchName(), searchVO.getStart(), searchVO.getEnd(), searchVO.getOther());
+    }
+
+    @Override
+    public List<OrderList> getDelOrders(int status, SearchVO searchVO) {
+        return orderDao.getOrders(status, searchVO.getSearchName(), searchVO.getStart(), searchVO.getEnd(), searchVO.getOther());
     }
 
     @Override
@@ -46,9 +52,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public int deleteOrders(List<String> ids) {
+        return orderDao.deleteBatchIds(ids);
+    }
+
+    @Override
+    public int recoveryOrder(String id) {
+        return orderDao.recoveryOrder(id);
+    }
+
+    @Override
     public List<OrderDetails> getOrderDetails(String id) {
         QueryWrapper<OrderDetails> wrapper = new QueryWrapper<>();
-        wrapper.eq("order_id",id);
+        wrapper.eq("order_id", id);
         return orderDetailsDao.selectList(wrapper);
     }
 

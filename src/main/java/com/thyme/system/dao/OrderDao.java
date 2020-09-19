@@ -5,6 +5,7 @@ import com.thyme.system.entity.bussiness.OrderList;
 import com.thyme.system.vo.TotalValueVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import javax.lang.model.element.NestingKind;
@@ -22,7 +23,7 @@ public interface OrderDao extends BaseMapper<OrderList> {
 
     @Select("<script>" +
             "SELECT ol.* FROM order_list AS ol LEFT JOIN order_details AS od ON ol.id = od.order_id WHERE 1=1 " +
-            "<choose>"+
+            "<choose>" +
             "<when test=\" start != '' and end != ''\"> " +
             "AND create_time BETWEEN #{start} AND #{end} " +
             "</when>" +
@@ -32,17 +33,26 @@ public interface OrderDao extends BaseMapper<OrderList> {
             "<when test=\" start == '' and end != ''\"> " +
             "<![CDATA[AND create_time <= #{end}]]> " +
             "</when>" +
-            "</choose>"+
+            "</choose>" +
             "<when test=\" consumer !='' and consumer!=null\">" +
             "AND consumer LIKE CONCAT('%',#{consumer},'%') " +
             "</when>" +
             "<when test=\" pdName !='' and pdName!=null\">" +
             "AND od.pd_name =#{pdName} " +
             "</when>" +
+            "<when test=\" status == 0\">" +
+            "AND ol.is_deleted = 0 " +
+            "</when>" +
+            "<when test=\" status == 1\">" +
+            "AND ol.is_deleted = 1 " +
+            "</when>" +
             "GROUP BY create_time " +
             "ORDER BY create_time DESC" +
             "</script>")
-    List<OrderList> getOrders(@Param("consumer") String consumer,@Param("start") String start,@Param("end") String end,@Param("pdName") String pdName);
+    List<OrderList> getOrders(@Param("status") int status, @Param("consumer") String consumer, @Param("start") String start, @Param("end") String end, @Param("pdName") String pdName);
+
+    @Update("UPDATE order_list SET is_deleted = 0 WHERE id = #{id}")
+    int recoveryOrder(@Param("id") String id);
 
     @Select("SELECT pd_name FROM order_details GROUP BY pd_name")
     List<String> getAllOrderProduct();
@@ -52,7 +62,7 @@ public interface OrderDao extends BaseMapper<OrderList> {
             "WHERE  " +
             "is_deleted = 0 " +
             "AND PERIOD_DIFF( date_format( now( ) , '%Y%m' ) , date_format(create_time, '%Y%m' ) ) =1")
-    Map<String,BigDecimal > preSalerooms();
+    Map<String, BigDecimal> preSalerooms();
 
     @Select("SELECT  IFNULL(SUM(total_price),0) AS totalPrice ,IFNULL(SUM(total_cost),0) AS totalCost " +
             "FROM order_list " +

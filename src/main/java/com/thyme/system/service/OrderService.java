@@ -16,9 +16,15 @@ import java.util.Map;
  */
 public interface OrderService {
 
-    List<OrderList> getOrders(SearchVO searchVO);
+    List<OrderList> getOrders(int status, SearchVO searchVO);
+
+    List<OrderList> getDelOrders(int status, SearchVO searchVO);
 
     List<String> getAllOrderProduct();
+
+    int deleteOrders(List<String> ids);
+
+    int recoveryOrder(String id);
 
     List<OrderDetails> getOrderDetails(String id);
 
@@ -28,7 +34,7 @@ public interface OrderService {
 
     int updateRegion(Region region);
 
-    int deleteRegion(String  id);
+    int deleteRegion(String id);
 
     Map<String ,Double[][]>  showGrowth();
 

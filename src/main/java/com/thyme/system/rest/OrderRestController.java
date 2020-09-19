@@ -29,28 +29,59 @@ public class OrderRestController {
     private final OrderService orderService;
 
     @PostMapping("/getOrders")
-    public ApiResponse getPrincipal(@RequestBody SearchVO searchVO) {
+    public ApiResponse getOrders(@RequestBody SearchVO searchVO) {
         JSONObject jsonObject = new JSONObject();
-        List<OrderList> orders = orderService.getOrders(searchVO);
+        List<OrderList> orders = orderService.getOrders(0, searchVO);
         jsonObject.put("total", orders.size());
         jsonObject.put("orderList", orders);
         return ApiResponse.ofSuccess(jsonObject);
     }
 
+    @PostMapping("/getDelOrders")
+    public ApiResponse getDelOrders(@RequestBody SearchVO searchVO) {
+        JSONObject jsonObject = new JSONObject();
+        List<OrderList> orders = orderService.getDelOrders(1, searchVO);
+        jsonObject.put("total", orders.size());
+        jsonObject.put("orderList", orders);
+        return ApiResponse.ofSuccess(jsonObject);
+    }
+
+
     @GetMapping("/getAllOrderProduct")
-    public ApiResponse getAllOrderProduct(){
+    public ApiResponse getAllOrderProduct() {
         JSONObject jsonObject = new JSONObject();
         List<String> list = orderService.getAllOrderProduct();
         jsonObject.put("productList", list);
         return ApiResponse.ofSuccess(jsonObject);
     }
 
+    @PostMapping("/deleteOrders")
+    @PreAuthorize("hasAnyRole('ROLE_DEVELOPER','ROLE_MANAGER')")
+    public ApiResponse deleteOrders(@RequestBody List<String> ids) {
+        int i = orderService.deleteOrders(ids);
+        if (i > 0) {
+            return ApiResponse.success("删除成功！");
+        } else
+            return ApiResponse.fail("删除出现异常！");
+    }
+
+    @GetMapping("/recoveryOrder")
+    @PreAuthorize("hasAnyRole('ROLE_DEVELOPER','ROLE_MANAGER')")
+    public ApiResponse recoveryOrder(@RequestParam("id") String id) {
+        int i = orderService.recoveryOrder(id);
+        if (i == 1)
+            return ApiResponse.success("恢复成功！");
+        else
+            return ApiResponse.fail("恢复出现异常！");
+    }
+
+
     @GetMapping("/getOrderDetails")
-    public ApiResponse getOrderDetails(@RequestParam("id") String id){
+    public ApiResponse getOrderDetails(@RequestParam("id") String id) {
         JSONObject jsonObject = new JSONObject();
         List<OrderDetails> orderDetails = orderService.getOrderDetails(id);
-        jsonObject.put("orderDetails",orderDetails);
-        jsonObject.put("total",orderDetails.size());
+        jsonObject.put("orderDetails", orderDetails);
+        jsonObject.put("total", orderDetails.size());
         return ApiResponse.ofSuccess(jsonObject);
     }
 
