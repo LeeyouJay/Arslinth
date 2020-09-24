@@ -27,27 +27,48 @@ layui.use(['laydate', 'form', 'table','layer'],function(){
 	table.on('tool(test)',function(obj) {
 		var data = obj.data;
 		switch (obj.event) {
-			case 'edit':
-				xadmin.open('编辑',context + 'product/update?id='+data.id,700,550);
-			break;
-			case 'del':
-				layer.confirm('确认要将所选数据删除吗？', function(res) {
-					deleteProduct(data.id);
-				});
-			break;
-		}
-	})
-	
-	function getProductList() {
-		$.ajax({
-			async: false,
-			url: context + 'product/products',
-			type: 'POST',
-			data: JSON.stringify(searchVO),
-			dataType: 'json',
-			contentType: 'application/json',
-			success: function(res) {
-				tableData = res.data.products;
+            case 'edit':
+                xadmin.open('编辑', context + 'product/update?id=' + data.id, 700, 550);
+                break;
+            case 'del':
+                layer.confirm('确认要将所选数据删除吗？', function (res) {
+                    deleteProduct(data.id);
+                });
+                break;
+        }
+    })
+    table.on('toolbar(test)', function (obj) {
+        switch (obj.event) {
+            case 'exportData':
+                console.log("导出Excel表")
+                location.href = context + 'product/download';
+                // $.ajax({
+                // 	async: false,
+                // 	url: context + 'product/download',
+                // 	type: 'GET',
+                // 	success: function(res) {
+                // 		console.log(res)
+                // 		location.href = 'https://' + location.host + "/" + contextPath;
+                // 		// if(res.code === 200){
+                // 		// 	typeList = res.data.typeList;
+                // 		// }else
+                // 		// 	layer.msg(res.message,{icon:2})
+                // 	}
+                // });
+                break;
+        }
+    })
+
+    function getProductList() {
+        $.ajax({
+            async: false,
+            url: context + 'product/products',
+            type: 'POST',
+            data: JSON.stringify(searchVO),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (res) {
+                tableData = res.data.products;
 				total = res.data.total;
 				tableRender(tableData);
 			}
@@ -89,9 +110,10 @@ layui.use(['laydate', 'form', 'table','layer'],function(){
 		    ,limits:[20,30,40,50]
 		    ,height:'full-100'
 			,page:true
-			,toolbar:'<div class = "layui-btn-container" > '+
-							'<button class="layui-btn" onclick="xadmin.open(\'添加品种\',\'add\',460,550)"><i class="layui-icon"></i>添加</button>'+
-							'<button class="layui-btn layui-btn-warm" onclick="xadmin.open(\'类型管理\',\'addType\',500,450)"><i class="layui-icon"></i>类型管理</button>'+
+			,toolbar: '<div class = "layui-btn-container" > ' +
+                '<button class="layui-btn" onclick="xadmin.open(\'添加品种\',\'add\',460,550)"><i class="layui-icon"></i>添加</button>' +
+                '<button class="layui-btn" lay-event = "exportData"><i class="layui-icon"></i>导出价目表</button>' +
+                '<button class="layui-btn layui-btn-warm" onclick="xadmin.open(\'类型管理\',\'addType\',500,450)"><i class="layui-icon"></i>类型管理</button>'+
 						'</div>'
 		})
 	}

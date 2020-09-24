@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.thyme.common.utils.excel.ExportExcelData;
 import com.thyme.system.entity.bussiness.Product;
 import com.thyme.system.vo.SearchVO;
 import org.apache.ibatis.annotations.*;
@@ -71,8 +72,11 @@ public interface ProductDao extends BaseMapper<Product> {
     int deleteProduct(@Param("id") String id);
 
     @Update("UPDATE product SET type_id=#{type} WHERE id=#{id}")
-    int updateProductType(@Param("id") String id,@Param("type") String type);
+    int updateProductType(@Param("id") String id, @Param("type") String type);
 
     @Update("UPDATE product SET is_show = #{isShow} WHERE id = #{id}")
-    int updateStatus(@Param("isShow")boolean isShow,@Param("id") String id);
+    int updateStatus(@Param("isShow") boolean isShow, @Param("id") String id);
+
+    @Select("SELECT t.type_name,p.pd_name,p.period,p.yield,p.height,p.price  FROM product AS p LEFT JOIN type AS t ON p.type_id = t.id ")
+    List<ExportExcelData> forExport();
 }

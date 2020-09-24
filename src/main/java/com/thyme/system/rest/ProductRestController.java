@@ -1,8 +1,16 @@
 package com.thyme.system.rest;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.write.merge.OnceAbsoluteMergeStrategy;
+import com.alibaba.excel.write.metadata.style.WriteCellStyle;
+import com.alibaba.excel.write.metadata.style.WriteFont;
+import com.alibaba.excel.write.style.HorizontalCellStyleStrategy;
 import com.alibaba.fastjson.JSONObject;
 import com.thyme.common.base.ApiResponse;
 import com.thyme.common.utils.UUIDUtils;
+import com.thyme.common.utils.excel.ExcelData;
+import com.thyme.common.utils.excel.ExportExcelData;
+import com.thyme.common.utils.excel.MyMergeStrategy;
 import com.thyme.system.entity.bussiness.Product;
 import com.thyme.system.entity.bussiness.ProductImg;
 import com.thyme.system.entity.bussiness.Type;
@@ -11,14 +19,20 @@ import com.thyme.system.service.ProductService;
 import com.thyme.system.service.UploadService;
 import com.thyme.system.vo.SearchVO;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Arslinth
@@ -217,12 +231,46 @@ public class ProductRestController {
     @GetMapping("/changeStatus")
     @PreAuthorize("hasAnyRole('ROLE_DEVELOPER','ROLE_MANAGER')")
     @ResponseBody
-    public ApiResponse updateStatus(@RequestParam("id")String id ,@RequestParam("isShow")Boolean isShow){
+    public ApiResponse updateStatus(@RequestParam("id") String id, @RequestParam("isShow") Boolean isShow) {
         int i = productService.updateStatus(id, isShow);
-        if(i==1){
+        if (i == 1) {
             return ApiResponse.success("变更成功！");
-        }else
+        } else
             return ApiResponse.fail("更改出现异常！");
     }
 
+    @GetMapping("/download")
+    public void download(HttpServletResponse response) throws IOException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        String fileName = URLEncoder.encode(dateFormat.format(new Date()) + " 价目表", "UTF-8").replaceAll("\\+", "%20");
+        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+
+        WriteCellStyle headWriteCellStyle = new WriteCellStyle();
+        WriteFont headWriteFont = new WriteFont();
+        headWriteFont.setFontHeightInPoints((short) 12);
+        headWriteCellStyle.setWriteFont(headWriteFont);
+
+
+        WriteCellStyle contentWriteCellStyle = new WriteCellStyle();
+        contentWriteCellStyle.setWrapped(false);//不自动换行
+        contentWriteCellStyle.setHorizontalAlignment(HorizontalAlignment.CENTER);//水平居中
+        contentWriteCellStyle.setVerticalAlignment(VerticalAlignment.CENTER);//垂直居中
+        WriteFont contextWriteFont = new WriteFont();
+        contextWriteFont.setFontHeightInPoints((short) 12);
+        contentWriteCellStyle.setWriteFont(contextWriteFont);
+        List<ExportExcelData> data = productService.forExport();
+
+        Map<String, List<ExportExcelData>> collect = data.stream().collect(Collectors.groupingBy(ExportExcelData::getTypeName, LinkedHashMap::new, Collectors.toList()));
+        MyMergeStrategy mergeStrategy = new MyMergeStrategy(collect);
+
+        HorizontalCellStyleStrategy horizontalCellStyleStrategy = new HorizontalCellStyleStrategy(headWriteCellStyle, contentWriteCellStyle);
+        EasyExcel.write(response.getOutputStream(), ExportExcelData.class)
+                .sheet("价格")
+                .registerWriteHandler(horizontalCellStyleStrategy)
+                .registerWriteHandler(mergeStrategy)
+                .doWrite(data);
+    }
 }

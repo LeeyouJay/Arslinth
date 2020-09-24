@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.common.utils.UUIDUtils;
+import com.thyme.common.utils.excel.ExportExcelData;
 import com.thyme.system.dao.ProductDao;
 import com.thyme.system.dao.ProductImgDao;
 import com.thyme.system.dao.StockDao;
@@ -43,6 +44,7 @@ public class ProductServiceImpl implements ProductService {
     private final TypeDao typeDao;
 
     private final ProductImgDao productImgDao;
+
     @Override
     public List<Product> getProducts(String productName) {
         return productDao.getProducts(productName);
@@ -168,11 +170,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int updateProductType(String id, String type) {
-        return productDao.updateProductType(id,type);
+        return productDao.updateProductType(id, type);
     }
 
     @Override
     public int updateStatus(String id, boolean isShow) {
-        return productDao.updateStatus(isShow,id);
+        return productDao.updateStatus(isShow, id);
+    }
+
+    @Override
+    public List<ExportExcelData> forExport() {
+        return productDao.forExport();
     }
 }

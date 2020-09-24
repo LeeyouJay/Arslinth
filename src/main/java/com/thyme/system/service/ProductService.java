@@ -2,6 +2,7 @@ package com.thyme.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.thyme.common.utils.excel.ExportExcelData;
 import com.thyme.system.entity.bussiness.Product;
 import com.thyme.system.entity.bussiness.Type;
 
@@ -36,7 +37,9 @@ public interface ProductService {
 
     int updateType(Type type);
 
-    int updateProductType(String id,String type);
+    int updateProductType(String id, String type);
 
-    int updateStatus(String id ,boolean isShow);
+    int updateStatus(String id, boolean isShow);
+
+    List<ExportExcelData> forExport();
 }
