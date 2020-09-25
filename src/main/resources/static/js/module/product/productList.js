@@ -40,21 +40,7 @@ layui.use(['laydate', 'form', 'table','layer'],function(){
     table.on('toolbar(test)', function (obj) {
         switch (obj.event) {
             case 'exportData':
-                console.log("导出Excel表")
                 location.href = context + 'product/download';
-                // $.ajax({
-                // 	async: false,
-                // 	url: context + 'product/download',
-                // 	type: 'GET',
-                // 	success: function(res) {
-                // 		console.log(res)
-                // 		location.href = 'https://' + location.host + "/" + contextPath;
-                // 		// if(res.code === 200){
-                // 		// 	typeList = res.data.typeList;
-                // 		// }else
-                // 		// 	layer.msg(res.message,{icon:2})
-                // 	}
-                // });
                 break;
         }
     })
