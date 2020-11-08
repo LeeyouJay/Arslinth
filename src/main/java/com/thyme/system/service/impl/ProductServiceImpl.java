@@ -1,10 +1,6 @@
 package com.thyme.system.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.common.utils.UUIDUtils;
 import com.thyme.common.utils.excel.ExportExcelData;
 import com.thyme.system.dao.ProductDao;
@@ -22,15 +18,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
  * @author Arslinth
  * @ClassName ProductServiceImpl
- * @Description TODO
+ * @Description
  * @Date 2020/6/17
  */
 @Service
@@ -133,7 +127,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Type> getTypeList() {
-        return typeDao.selectList(new QueryWrapper<Type>());
+        return typeDao.selectList(new QueryWrapper<>());
     }
 
     @Override

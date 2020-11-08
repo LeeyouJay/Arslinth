@@ -1,14 +1,12 @@
 package com.thyme.system.rest;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.write.merge.OnceAbsoluteMergeStrategy;
 import com.alibaba.excel.write.metadata.style.WriteCellStyle;
 import com.alibaba.excel.write.metadata.style.WriteFont;
 import com.alibaba.excel.write.style.HorizontalCellStyleStrategy;
 import com.alibaba.fastjson.JSONObject;
 import com.thyme.common.base.ApiResponse;
 import com.thyme.common.utils.UUIDUtils;
-import com.thyme.common.utils.excel.ExcelData;
 import com.thyme.common.utils.excel.ExportExcelData;
 import com.thyme.common.utils.excel.MyMergeStrategy;
 import com.thyme.system.entity.bussiness.Product;
@@ -122,7 +120,7 @@ public class ProductRestController {
 
         int i = productService.addType(type);
         if ( i == 0)
-            return ApiResponse.ofMessage(403,"存在相类型名称！");
+            return ApiResponse.fail("存在相类型名称！");
         else if (i == 1)
             return ApiResponse.success("添加成功！");
         else
@@ -133,7 +131,7 @@ public class ProductRestController {
     public ApiResponse deleteType(@RequestParam("id") String id){
         int i = productService.deleteType(id);
         if (i==0)
-            return ApiResponse.ofMessage(403,"找不到对应id");
+            return ApiResponse.fail("找不到对应id");
         else if (i==1)
             return ApiResponse.success("删除成功！");
         else if(i==2)
@@ -253,7 +251,6 @@ public class ProductRestController {
         headWriteFont.setFontHeightInPoints((short) 12);
         headWriteCellStyle.setWriteFont(headWriteFont);
 
-
         WriteCellStyle contentWriteCellStyle = new WriteCellStyle();
         contentWriteCellStyle.setWrapped(false);//不自动换行
         contentWriteCellStyle.setHorizontalAlignment(HorizontalAlignment.CENTER);//水平居中
@@ -261,6 +258,7 @@ public class ProductRestController {
         WriteFont contextWriteFont = new WriteFont();
         contextWriteFont.setFontHeightInPoints((short) 12);
         contentWriteCellStyle.setWriteFont(contextWriteFont);
+
         List<ExportExcelData> data = productService.forExport();
 
         Map<String, List<ExportExcelData>> collect = data.stream().collect(Collectors.groupingBy(ExportExcelData::getTypeName, LinkedHashMap::new, Collectors.toList()));
@@ -268,7 +266,7 @@ public class ProductRestController {
 
         HorizontalCellStyleStrategy horizontalCellStyleStrategy = new HorizontalCellStyleStrategy(headWriteCellStyle, contentWriteCellStyle);
         EasyExcel.write(response.getOutputStream(), ExportExcelData.class)
-                .sheet("价格")
+                .sheet("价目表")
                 .registerWriteHandler(horizontalCellStyleStrategy)
                 .registerWriteHandler(mergeStrategy)
                 .doWrite(data);

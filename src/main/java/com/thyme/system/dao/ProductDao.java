@@ -1,12 +1,8 @@
 package com.thyme.system.dao;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.thyme.common.utils.excel.ExportExcelData;
 import com.thyme.system.entity.bussiness.Product;
-import com.thyme.system.vo.SearchVO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -77,6 +73,6 @@ public interface ProductDao extends BaseMapper<Product> {
     @Update("UPDATE product SET is_show = #{isShow} WHERE id = #{id}")
     int updateStatus(@Param("isShow") boolean isShow, @Param("id") String id);
 
-    @Select("SELECT t.type_name,p.pd_name,p.period,p.yield,p.height,p.price  FROM product AS p LEFT JOIN type AS t ON p.type_id = t.id ")
+    @Select("SELECT t.type_name,p.pd_name,p.period,p.yield,p.height,p.price  FROM product AS p LEFT JOIN type AS t ON p.type_id = t.id ORDER BY t.type_name ")
     List<ExportExcelData> forExport();
 }

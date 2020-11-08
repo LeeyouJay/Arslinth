@@ -36,7 +36,7 @@ file:
 #SSL证书访问
 server:
   ssl:
-    key-store: D://https.jks
+    key-store: E://Java project/https.jks
     key-password: Tb5sEP55
 
 imgPath: https://localhost:8600/Arslinth

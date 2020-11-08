@@ -135,7 +135,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
      * 校验用户信息
      */
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(customAuthenticationProvider);
     }
 
