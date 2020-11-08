@@ -41,5 +41,7 @@ public interface ProductService {
 
     int updateStatus(String id, boolean isShow);
 
+    int updateUnit(String unit, String id);
+
     List<ExportExcelData> forExport();
 }

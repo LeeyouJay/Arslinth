@@ -5,7 +5,6 @@ import com.thyme.system.entity.bussiness.Principal;
 import com.thyme.system.entity.bussiness.Stock;
 import com.thyme.system.service.StockService;
 import com.thyme.system.service.SysMenuService;
-import com.thyme.system.vo.StockVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

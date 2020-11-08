@@ -13,11 +13,12 @@
 		var editIndex = layedit.build('textarea'); //建立编辑器
 		
 		form.on('submit(formDemo)', function(data) {
-			var product = data.field;
-			product.characters = layedit.getContent(editIndex);
-			updateProduct(product)
-			return false;
-		});
+            var product = data.field;
+            product.characters = layedit.getContent(editIndex);
+            console.log(product);
+            updateProduct(product)
+            return false;
+        });
 		var uploadInst = upload.render({
 			elem: '#LAY-image-upload'
 			, url: context + 'product/updateImage'

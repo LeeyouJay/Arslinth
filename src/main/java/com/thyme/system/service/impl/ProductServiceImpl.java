@@ -61,10 +61,12 @@ public class ProductServiceImpl implements ProductService {
                     .type(product.getType())
                     .characters(product.getCharacters())
                     .height(product.getHeight())
-                    .period(product.getPeriod())
+                    .periodMin(product.getPeriodMin())
+                    .periodMax(product.getPeriodMax())
                     .price(product.getPrice())
                     .cost(product.getCost())
                     .num(product.getNum())
+                    .unit(product.getUnit())
                     .yield(product.getYield()).build());
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,6 +172,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int updateStatus(String id, boolean isShow) {
         return productDao.updateStatus(isShow, id);
+    }
+
+    @Override
+    public int updateUnit(String unit, String id) {
+        return productDao.updateUnit(unit, id);
     }
 
     @Override

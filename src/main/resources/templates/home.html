@@ -1,177 +1,90 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 	<head>
-		<meta charset="UTF-8">
-		<title>欢迎页面-X-admin2.2</title>
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=device-dpi" />
-		<link rel="stylesheet" th:href="@{/static/css/font.css}">
-		<link rel="stylesheet" th:href="@{/static/css/xadmin.css}">
-		<!-- <script th:src="@{/static/js/jquery.min.js}"></script> -->
-		<!-- <script th:src="@{/static/js/layui/layui.js}" charset="utf-8"></script> -->
-		<!-- <script type="text/javascript" th:src="@{/static/js/xadmin.js}"></script> -->
-		<!--[if lt IE 9]>
-	      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-	      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-	    <![endif]-->
-	</head>
-	<style>
-		.layui-timeline {
-			padding-left: 20px !important;
-		}
-	</style>
-	<body>
-		<body>
-			<div class="layui-card">
-				<div class="layui-card-body"></div>
-				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 15px;">
-					<legend>更新时间线</legend>
-				</fieldset>
-				<ul class="layui-timeline">
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<h3 class="layui-timeline-title">2020年8月3日</h3>
-							<p>
-								修复了一些逻辑错误，右上角可以更新头像了
-								<ul>
-									<li>微信小程序可以临时增加品种，点击图片可以查看品种的详细信息了
-										<br />上传的图片比例建议为4:3
-									</li>
-									<li>微信小程序可以临时隐藏不必要的品种（列表左滑即可选择）</li>
-									<li>进货管理->品种信息：新增了快速切换隐藏或显示的功能，新增“性状特征”编辑富文本的功能</li>
-								</ul>
-							</p>
-						</div>
-					</li>
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<h3 class="layui-timeline-title">2020年7月29日</h3>
-							<p>
-								此次仅包含了一些小更新
-								<ul>
-									<li>网站的访问形式变成https开头，意在提供安全访问的通道</li>
-									<li>进货管理->进货统计：添加Excel导入功能的说明</li>
-									<li>出货管理->销售列表：添加根据出售的商品名称的查找方式</li>
-								</ul>
-							</p>
-						</div>
-					</li>
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<h3 class="layui-timeline-title">2020年7月20日</h3>
-							<p>
-								新加了一些页面; 修改了一些权限功能
-								<ul>
-									<li>增加出货管理的销售数据统计图</li>
-									<li>系统管理->角色管理：除管理员外新添的角色将不再有增加、编辑、删除等功能</li>
-									<li>出货管理->销售列表：添加地区显示的管理</li>
-								</ul>
-							</p>
-						</div>
-					</li>
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<h3 class="layui-timeline-title">2020年7月19日</h3>
-							<p>
-								<ul>
-									<li>进货管理->品种信息：修改了品种信息页面样式</li>
-								</ul>
-							</p>
-						</div>
-					</li>
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<h3 class="layui-timeline-title">2020年7月16日</h3>
-							<p>
-								第一次上线云端 <i class="layui-icon"></i>
-								<br>地址：<a href="https://chenyi.ink:8600/Arslinth" target="_Blank">https://chenyi.ink:8600/Arslinth</a>
-							</p>
-						</div>
-					</li>
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<h3 class="layui-timeline-title">2020年7月1日</h3>
-							<p>
-								基本业务已全部添加
-								<br>开启与业务相关的app编写
-							</p>
-						</div>
-					</li>
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<h3 class="layui-timeline-title">2020年6月20日</h3>
-							<p>
-								完成登入以及权限的验证功能
-								<br>将前端UI迁移至Layui框架
-								<br>使用Layui 2.5.6 的一切准备工作似乎都已到位
-							</p>
-							
-						</div>
-					</li>
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<h3 class="layui-timeline-title">2020年5月15日</h3>
-							<p>
-								第一次使用springboot框架快速搭建项目
-								<br>重新学习面向对象的开发模式
-								<br>重新熟悉springboot的框架结构
-							</p>
-						</div>
-					</li>
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<div class="layui-timeline-title">过去</div>
-						</div>
-					</li>
-				</ul>
+        <meta charset="UTF-8">
+        <title>欢迎页面-X-admin2.2</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport"
+              content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=device-dpi"/>
+        <link rel="stylesheet" th:href="@{/static/css/font.css}">
+        <link rel="stylesheet" th:href="@{/static/css/xadmin.css}">
+        <!-- <script th:src="@{/static/js/jquery.min.js}"></script> -->
+        <script th:src="@{/static/js/layui/layui.js}" charset="utf-8"></script>
+        <script type="text/javascript" th:src="@{/static/js/xadmin.js}"></script>
+        <!--[if lt IE 9]>
+        <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+        <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <style>
+        .layui-timeline {
+            padding-left: 20px !important;
+        }
+    </style>
 
-				<!-- <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-					<legend>Layui前端框架</legend>
-				</fieldset>
-				<ul class="layui-timeline">
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<div class="layui-timeline-title">2018年，layui 5.0 发布。并发展成为中国最受欢迎的前端UI框架（期望）</div>
-						</div>
-					</li>
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<div class="layui-timeline-title">2017年，layui 里程碑版本 2.0 发布</div>
-						</div>
-					</li>
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<div class="layui-timeline-title">2016年，layui 首个版本发布</div>
-						</div>
-					</li>
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<div class="layui-timeline-title">2015年，layui 孵化</div>
-						</div>
-					</li>
-					<li class="layui-timeline-item">
-						<i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-timeline-axis"></i>
-						<div class="layui-timeline-content layui-text">
-							<div class="layui-timeline-title">更久前，轮子时代。维护几个独立组件：layer等</div>
-						</div>
-					</li>
-				</ul> -->
-				
-			</div>
-		</body>
-	</body>
+    <body>
+    <div class="layui-card">
+        <div class="layui-card-body"></div>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 15px;">
+            <legend>更新时间线</legend>
+        </fieldset>
+        <ul class="layui-timeline" id="itemList">
+
+
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis"></i>
+                <div class="layui-timeline-content layui-text">
+                    <div class="layui-timeline-title">过去...</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="layui-fixbar" sec:authorize="hasRole('ROLE_DEVELOPER')">
+        <button class="layui-btn" onclick="oppen()" lay-filter="search">编辑</button>
+    </div>
+    </body>
+
+    <div class="layui-fluid" style="display: none;" id="updateEdit">
+        <div class="layui-row">
+            <form class="layui-form" action="">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">更新时间</label>
+                    <div class="layui-input-inline">
+                        <input class="layui-input" required lay-verify="required" autocomplete="off" placeholder="请选择日期"
+                               name="time" id="updateTime">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">小标题</label>
+                    <div class="layui-input-inline layui-required">
+                        <input type="text" name="title" placeholder="请输入小标题" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">内容</label>
+                    <div class="layui-input-inline layui-required">
+                        <textarea name="context" required placeholder="句号分段" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        var LogList = [[${list}]]
+        var url = [[@{
+            /}]];
+    </script>
+    <script type="text/javascript" th:src="@{/static/js/module/home.js}"></script>
 </html>

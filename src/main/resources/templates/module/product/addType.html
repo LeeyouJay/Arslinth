@@ -50,8 +50,10 @@
 	</div>
 	
 	<script type="text/html" id="barDemo">
-		<a class="layui-btn-danger layui-btn layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
-	</script>
+        {{#  if(d.typeName != '玉米'){ }}
+        <a class="layui-btn-danger layui-btn layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+        {{#  } }}
+    </script>
 <script th:inline="javascript">
 	var context = [[@{
 		/}]];

@@ -237,6 +237,17 @@ public class ProductRestController {
             return ApiResponse.fail("更改出现异常！");
     }
 
+    @GetMapping("/updateUnit")
+    @PreAuthorize("hasAnyRole('ROLE_DEVELOPER','ROLE_MANAGER')")
+    @ResponseBody
+    public ApiResponse updateUnit(@RequestParam("id") String id, @RequestParam("unit") String unit) {
+        int i = productService.updateUnit(unit, id);
+        if (i == 1) {
+            return ApiResponse.success("规格更改为：");
+        } else
+            return ApiResponse.fail("更改出现异常！");
+    }
+
     @GetMapping("/download")
     public void download(HttpServletResponse response) throws IOException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

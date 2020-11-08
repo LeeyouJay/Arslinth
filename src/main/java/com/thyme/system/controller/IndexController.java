@@ -1,5 +1,6 @@
 package com.thyme.system.controller;
 
+import com.thyme.system.service.impl.UpdateLogServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -25,6 +28,7 @@ public class IndexController {
 
     private final SessionRegistry sessionRegistry;
 
+    private final UpdateLogServiceImpl updateLogService;
     @RequestMapping("/")
     public String index(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -33,15 +37,23 @@ public class IndexController {
     }
 
     @RequestMapping("/console")
-    public String home(){
+    public String home(Model model) {
+        model.addAttribute("list", updateLogService.getLogList());
         return "home";
+    }
+
+    @RequestMapping("/updateLog")
+    @PreAuthorize("hasAnyRole('ROLE_DEVELOPER')")
+    public String updateLog(@RequestParam("id") String id, Model model) {
+        model.addAttribute("updateLog", updateLogService.findById(id));
+        return "updateLog";
     }
 
 
     @RequestMapping("/admin")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String admin(){
+    public String admin() {
         return "是管理员";
     }
 

@@ -50,30 +50,51 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">剩余库存(包)</label>
 						<div class="layui-input-inline">
-							<input type="text" name="num" lay-verify="number" placeholder="请输入剩余包数" autocomplete="off" class="layui-input" th:value="${product.num}">
+							<input type="text" name="num" lay-verify="number" placeholder="请输入剩余包数" autocomplete="off"
+								   class="layui-input" th:value="${product.num}">
 						</div>
-						<label class="layui-form-label">生育期(天)</label>
+						<label class="layui-form-label">规格</label>
 						<div class="layui-input-inline">
-							<input type="text" name="period" lay-verify="number" placeholder="请输入生育期天数" autocomplete="off" class="layui-input" th:value="${product.period}">
+							<input type="text" name="unit" lay-verify="required" placeholder="请输入规格" autocomplete="off"
+								   class="layui-input" th:value="${product.unit}">
 						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">株高(cm)</label>
+						<div class="layui-input-inline">
+							<input type="text" name="height" lay-verify="number" placeholder="请输入植株高度"
+								   autocomplete="off" class="layui-input" th:value="${product.height}">
+						</div>
+						<label class="layui-form-label">亩产(公斤)</label>
+						<div class="layui-input-inline">
+							<input type="text" name="yield" lay-verify="number" placeholder="请输入亩产数量" autocomplete="off"
+								   class="layui-input" th:value="${product.yield}">
+						</div>
+						<!-- <div class="layui-input-inline">
+							<input type="text" name="period" lay-verify="number" placeholder="请输入生育期天数" autocomplete="off" class="layui-input" th:value="${product.period}">
+						</div> -->
 					</div>
 
 					<div class="layui-form-item">
-						<label class="layui-form-label">亩产(公斤)</label>
-						<div class="layui-input-inline">
-							<input type="text" name="yield" lay-verify="number" placeholder="请输入亩产数量" autocomplete="off" class="layui-input" th:value="${product.yield}">
+						<label class="layui-form-label">生育期(天)</label>
+						<div class="layui-input-inline" style="width: 50px">
+							<input type="text" name="periodMin" lay-verify="number" autocomplete="off"
+								   class="layui-input" th:value="${product.periodMin}">
 						</div>
-						<label class="layui-form-label">株高(cm)</label>
-						<div class="layui-input-inline">
-							<input type="text" name="height" lay-verify="number" placeholder="请输入植株高度" autocomplete="off" class="layui-input" th:value="${product.height}">
+						<div class="layui-form-mid">~</div>
+						<div class="layui-input-inline" style="width: 50px">
+							<input type="text" name="periodMax" lay-verify="number" autocomplete="off"
+								   class="layui-input" th:value="${product.periodMax}">
 						</div>
 					</div>
 
 					<div class="layui-form-item">
 						<label class="layui-form-label">图片</label>
-						<img class="layui-upload-img" th:src="@{${ImgUrl}}" style="width: 92px;height: 92px; margin: 0 10px 10px 0;" id="demo1">
+						<img class="layui-upload-img" th:src="@{${ImgUrl}}"
+							 style="width: 92px;height: 92px; margin: 0 10px 10px 0;" id="demo1">
 						<div class="layui-input-block">
-							<button type="button" class="layui-btn " id="LAY-image-upload"><i class="layui-icon">&#xe67c;</i>重新选择图片 </button>
+							<button type="button" class="layui-btn " id="LAY-image-upload"><i class="layui-icon">&#xe67c;</i>重新选择图片
+							</button>
 						</div>
 					</div>
 

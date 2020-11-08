@@ -21,9 +21,9 @@ spring:
       stat-view-servlet:
         login-username: admin
         login-password: 1234
-  #jackson:
-    #date-format: yyyy-MM-dd
-    #time-zone: GMT+8
+  #  jackson:
+  #    date-format: yyyy年MM月dd日
+  #    time-zone: GMT+8
   servlet:
     multipart:
       #最大单个上传文件大小
