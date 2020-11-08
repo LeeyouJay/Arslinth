@@ -1,6 +1,5 @@
 package com.thyme;
 
-import cn.hutool.core.lang.UUID;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.thyme.common.utils.UUIDUtils;
 import org.junit.Test;
