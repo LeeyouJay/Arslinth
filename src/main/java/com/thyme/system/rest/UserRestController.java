@@ -115,11 +115,14 @@ public class UserRestController {
                 .liveAddress(userVO.getLiveAddress())
                 .createTime(new Date()).build();
         try {
-            sysUserRoleService.deleteByUserId(userVO.getId());
-            sysUserRoleService.insert(new SysUserRole(userVO.getId(), sysRoleService.getIdByName(userVO.getUserRole())));
+            synchronized (this) {
+                sysUserRoleService.deleteByUserId(userVO.getId());
+                sysUserRoleService.insert(new SysUserRole(userVO.getId(), sysRoleService.getIdByName(userVO.getUserRole())));
+            }
             userService.updateById(sysUser);
         } catch (Exception e) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            System.out.println(e);
             return ApiResponse.fail("更新失败！");
         }
         if (currentUser.getId().equals(userVO.getId()))
@@ -139,6 +142,7 @@ public class UserRestController {
             String userId = UUIDUtils.getUUID();
             //角色id
             SysUserRole sysUserRole = new SysUserRole();
+
             sysUserRole.setRoleId(sysRoleService.getIdByName(userVO.getUserRole()));
             sysUserRole.setUserId(userId);
             sysUserRoleService.insert(sysUserRole);

@@ -52,6 +52,8 @@
 	<script type="text/html" id="barDemo">
         {{#  if(d.typeName != '玉米'){ }}
         <a class="layui-btn-danger layui-btn layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+        {{#  } else { }}
+        默认类型无法删除
         {{#  } }}
     </script>
 <script th:inline="javascript">

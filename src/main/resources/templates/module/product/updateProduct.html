@@ -48,17 +48,17 @@
 					</div>
 
 					<div class="layui-form-item">
-						<label class="layui-form-label">剩余库存(包)</label>
-						<div class="layui-input-inline">
-							<input type="text" name="num" lay-verify="number" placeholder="请输入剩余包数" autocomplete="off"
-								   class="layui-input" th:value="${product.num}">
-						</div>
-						<label class="layui-form-label">规格</label>
-						<div class="layui-input-inline">
-							<input type="text" name="unit" lay-verify="required" placeholder="请输入规格" autocomplete="off"
-								   class="layui-input" th:value="${product.unit}">
-						</div>
-					</div>
+                        <label class="layui-form-label">剩余库存</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="num" lay-verify="number" placeholder="请输入剩余包数" autocomplete="off"
+                                   class="layui-input" th:value="${product.num}">
+                        </div>
+                        <label class="layui-form-label">规格</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="unit" lay-verify="required" placeholder="请输入规格" autocomplete="off"
+                                   class="layui-input" th:value="${product.unit}">
+                        </div>
+                    </div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">株高(cm)</label>
 						<div class="layui-input-inline">

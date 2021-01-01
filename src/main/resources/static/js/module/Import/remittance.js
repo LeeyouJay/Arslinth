@@ -16,15 +16,15 @@
 					,data:remittances
 					,cols:[
 						[
-							{field:'id', title:'ID',hide:true},
-							{field:'principalId', title:'principalId',hide:true},
-							{field:'pcpName', width:160,title:'姓名',align: 'center',totalRowText: '本页小计'},
-							{field:'totalCount',  minWidth: 50,title:'总进货量(包)',totalRow:true,sort:true},
-							{field:'totalCost',  minWidth: 50,title:'总进货金额',totalRow:true,sort:true},
-							{field:'totalPay',  minWidth: 80,title:'已付款金额',totalRow:true},
-							{field:'debt',  minWidth: 80,title:'尚欠款',totalRow:true},
-				            {title:'操作',align: 'center', toolbar: '#barDemo', width: 220}
-						]
+                            {field: 'id', title: 'ID', hide: true},
+                            {field: 'principalId', title: 'principalId', hide: true},
+                            {field: 'pcpName', width: 160, title: '姓名', align: 'center', totalRowText: '本页小计'},
+                            {field: 'totalCount', minWidth: 50, title: '总进货量(包)', totalRow: true, sort: true},
+                            {field: 'totalCost', minWidth: 50, title: '总进货金额', totalRow: true, sort: true},
+                            {field: 'totalPay', minWidth: 80, title: '已付款金额', totalRow: true},
+                            {field: 'debt', minWidth: 80, title: '未结款', totalRow: true},
+                            {title: '操作', align: 'center', toolbar: '#barDemo', width: 220}
+                        ]
 					]
 				    ,limit:20
 				    ,limits:[20,30,40,50]

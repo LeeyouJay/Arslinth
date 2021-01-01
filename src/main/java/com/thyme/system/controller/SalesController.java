@@ -51,30 +51,4 @@ public class SalesController {
         return "module/sales/addDistrict";
     }
 
-    @GetMapping("/analysis")
-    public String analysis(Model model){
-        SysMenu sysMenu = sysMenuService.getByHref("sales/analysis");
-        SysMenu parentMenu = sysMenuService.getById(sysMenu.getParentId());
-        model.addAttribute("menuName",sysMenu.getMenuName());
-        model.addAttribute("parentName",parentMenu.getMenuName());
-
-        Map<String, Double[][]> growth = orderService.showGrowth();
-        Map<String, Object> totalMap = orderService.showTotal();
-        Map<String, int[]> typeValue = orderService.showTypeValue();
-        List<String> keys = new ArrayList<>();
-        for (String key:typeValue.keySet()){
-            keys.add(key);
-        }
-
-        model.addAttribute("pre",growth.get("pre"));
-        model.addAttribute("cur",growth.get("cur"));
-        model.addAttribute("totalStock",totalMap.get("totalStock"));
-        model.addAttribute("totalPrice",totalMap.get("totalPrice"));
-        model.addAttribute("totalValue",totalMap.get("totalValue"));
-        model.addAttribute("totalEarns",totalMap.get("totalEarns"));
-        model.addAttribute("typeName",keys);
-        model.addAttribute("typeValue",typeValue);
-
-        return "module/sales/analysis";
-    }
 }

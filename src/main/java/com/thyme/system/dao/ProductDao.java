@@ -76,6 +76,6 @@ public interface ProductDao extends BaseMapper<Product> {
     @Update("UPDATE product SET unit = #{unit} WHERE id = #{id}")
     int updateUnit(@Param("unit") String unit, @Param("id") String id);
 
-    @Select("SELECT t.type_name,p.pd_name,p.period_min,p.period_max,p.unit,p.yield,p.height,p.price  FROM product AS p LEFT JOIN type AS t ON p.type_id = t.id ORDER BY t.type_name ")
-    List<ExportExcelData> forExport();
+    @Select("SELECT t.type_name AS type,p.pd_name,p.period_min,p.period_max,p.unit,p.yield,p.height,p.price  FROM product AS p LEFT JOIN type AS t ON p.type_id = t.id ORDER BY t.type_name ")
+    List<Product> forExport();
 }

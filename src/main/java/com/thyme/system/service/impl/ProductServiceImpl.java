@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -84,9 +85,11 @@ public class ProductServiceImpl implements ProductService {
             if (productByName!=null && !productByName.getId().equals(product.getId()))
                 return 0;
             else {
-                ProductImg one = productImgDao.selectOne(new QueryWrapper<ProductImg>().eq("pd_name", productById.getPdName()));
-                if (one!=null)
-                    productImgDao.updatePdName(product.getPdName(),one.getPdName());
+                QueryWrapper<ProductImg> wrapper = new QueryWrapper<>();
+                wrapper.groupBy("pd_name").eq("pd_name", productById.getPdName());
+                ProductImg one = productImgDao.selectOne(wrapper);
+                if (one != null)
+                    productImgDao.updatePdName(product.getPdName(), one.getPdName());
                 productDao.updateProduct(product);
                 return 1;
             }
@@ -148,7 +151,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int deleteType(String id) {
         List<Product> products = typeDao.checkStockByType(id);
-        if (products.size()>0 ||"33ff9fb9e11a454dbaa388e8332a8ac4".equals(id)){//品种创建时默认的类型id
+        //品种创建时默认的类型id
+        if (products.size() > 0 || "33ff9fb9e11a454dbaa388e8332a8ac4".equals(id)) {
             return 2;
         }
         return typeDao.deleteById(id);
@@ -181,6 +185,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ExportExcelData> forExport() {
-        return productDao.forExport();
+        List<Product> products = productDao.forExport();
+        List<ExportExcelData> exportExcelData = new ArrayList<>();
+        for (Product product : products) {
+            exportExcelData.add(ExportExcelData.builder()
+                    .price(product.getPrice())
+                    .pdName(product.getPdName())
+                    .typeName(product.getType())
+                    .height(product.getHeight())
+                    .yield(product.getYield())
+                    .period(product.getPeriodMin() + " ~ " + product.getPeriodMax()).build());
+        }
+        return exportExcelData;
     }
 }

@@ -2,6 +2,7 @@ package com.thyme.common.utils.excel;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -11,6 +12,7 @@ import lombok.Data;
  * @Date 2020/9/24
  */
 @Data
+@Builder
 public class ExportExcelData {
 
     @ExcelProperty(value = "类型")
@@ -21,7 +23,7 @@ public class ExportExcelData {
     private String pdName;
 
     @ExcelProperty(value = "生育期(天)")
-    private int period;
+    private String period;
 
     @ExcelProperty(value = "亩产量(公斤)")
     private double yield;

@@ -40,9 +40,9 @@ layui.use(['laydate', 'form'], function() {
 							time: 2000
 						},
 						function() {
-							logout();
-							xadmin.close();
-						});
+                            xadmin.close();
+                            logout();
+                        });
 				}else
 					layer.msg(data.message);
 			}

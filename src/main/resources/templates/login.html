@@ -5,7 +5,8 @@
     <title>登录</title>
     <style>
         body {
-            background-color: #F0F2F5
+            /*background-color: #F0F2F5;*/
+            background: url("[[@{/}]]static/wallhaven.jpg");
         }
     </style>
     <link rel="shortcut icon" th:href="@{favicon.ico}">
@@ -54,7 +55,7 @@
 <div id="app">
     <div class="login">
         <el-form label-position="left" label-width="0px" class="login-form">
-            <h3 class="title">后台管理系统测试</h3>
+            <h3 class="title">种子销售统计管理</h3>
             <el-form-item>
                 <el-input v-model='username' type="text" placeholder="账号">
                 </el-input>
@@ -72,7 +73,7 @@
             </el-form-item>
             <el-checkbox style="margin:0px 0px 25px 0px;" v-model="rememberMe">记住我</el-checkbox>
             <el-form-item style="width:100%;">
-                <el-button size="medium" type="primary" style="width:100%;" @click="login()">
+                <el-button size="medium" type="success" style="width:100%;" @click="login()">
                     <span>登 录</span>
                 </el-button>
             </el-form-item>
@@ -160,9 +161,9 @@
             max_conn: 10 	//点到点最大连接数
         };
         //调用
-        CanvasParticle(config);
+        //CanvasParticle(config);
     }
 </script>
-<script th:src="@{static/js/canvas-particle.js}"></script>
+<!-- <script th:src="@{static/js/canvas-particle.js}"></script> -->
 </body>
 </html>

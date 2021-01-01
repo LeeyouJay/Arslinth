@@ -1,5 +1,7 @@
 package com.thyme.system.controller;
 
+import com.thyme.system.entity.SysMenu;
+import com.thyme.system.service.OrderService;
 import com.thyme.system.service.impl.UpdateLogServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 /**
  * @author thyme
  * @ClassName LoginController
@@ -29,8 +34,11 @@ public class IndexController {
     private final SessionRegistry sessionRegistry;
 
     private final UpdateLogServiceImpl updateLogService;
+
+    private final OrderService orderService;
+
     @RequestMapping("/")
-    public String index(){
+    public String index() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<Object> allPrincipals = sessionRegistry.getAllPrincipals();
         return "index";
@@ -38,17 +46,25 @@ public class IndexController {
 
     @RequestMapping("/console")
     public String home(Model model) {
-        model.addAttribute("list", updateLogService.getLogList());
-        return "home";
-    }
 
-    @RequestMapping("/updateLog")
-    @PreAuthorize("hasAnyRole('ROLE_DEVELOPER')")
-    public String updateLog(@RequestParam("id") String id, Model model) {
-        model.addAttribute("updateLog", updateLogService.findById(id));
-        return "updateLog";
-    }
+        Map<String, Double[][]> growth = orderService.showGrowth();
+        Map<String, Object> totalMap = orderService.showTotal();
+        Map<String, int[]> typeValue = orderService.showTypeValue();
+        List<String> keys = new ArrayList<>();
+        for (String key : typeValue.keySet()) {
+            keys.add(key);
+        }
 
+        model.addAttribute("pre", growth.get("pre"));
+        model.addAttribute("cur", growth.get("cur"));
+        model.addAttribute("totalStock", totalMap.get("totalStock"));
+        model.addAttribute("totalPrice", totalMap.get("totalPrice"));
+        model.addAttribute("totalValue", totalMap.get("totalValue"));
+        model.addAttribute("totalEarns", totalMap.get("totalEarns"));
+        model.addAttribute("typeName", keys);
+        model.addAttribute("typeValue", typeValue);
+        return "analysis";
+    }
 
     @RequestMapping("/admin")
     @ResponseBody
