@@ -99,7 +99,7 @@
 			table.on('tool(test)',function(obj){
 				var layEvent = obj.event;
 				var data = obj.data;
-				xadmin.open('修改进货信息',context+'Import/updateStock?id='+data.id,460,670);
+				xadmin.open('修改进货信息',context+'Import/updateStock?id='+data.id,700,500);
 			});
 			//头工具栏事件
 			var index;
@@ -109,7 +109,7 @@
 				case 'add':
 					index=layer.open({
 								type:1,
-								area: ['450px', '670px'],
+								area: ['700px', '500px'],
 								fix: false, //不固定
 								maxmin: true,
 								shadeClose: true,
@@ -152,7 +152,7 @@
 				case 'explain':
 					layer.open({
 							type:1,
-							area: ['580px', '670px'],
+							area: ['700px', '500px'],
 							fix: false, //不固定
 							maxmin: true,
 							shadeClose: true,

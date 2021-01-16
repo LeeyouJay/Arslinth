@@ -10,6 +10,7 @@ import com.thyme.common.utils.FileUtils;
 import com.thyme.system.dao.*;
 import com.thyme.system.entity.SysUser;
 import com.thyme.system.entity.bussiness.Region;
+import com.thyme.system.entity.bussiness.Ticket;
 import com.thyme.system.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -40,6 +41,8 @@ public class MybatisTest {
     @Autowired
     private SysUserDao userDao;
 
+    @Autowired
+    private TicketDao ticketDao;
 
     @Test
     public void insert() {
@@ -92,6 +95,16 @@ public class MybatisTest {
         String s = address.equals(Constants.REGION) ? "内网IP" : address;
         System.out.println(s);
     }
+    @Test
+    public void autoFill(){
 
+//        Ticket ticket = Ticket.builder().id("213123")
+//                .url("dsad w")
+//                .principalId("12311").build();
+//
+//        ticketDao.insert(ticket);
+
+        System.out.println(ticketDao.getTicketsByPcpId("12311"));
+    }
 
 }

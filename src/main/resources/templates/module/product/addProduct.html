@@ -27,42 +27,46 @@
 						<div class="layui-input-inline layui-required">
 							<input type="text" name="pdName" id="pdName" required lay-verify="required" placeholder="请输入品种名称" autocomplete="off" class="layui-input">
 						</div>
-					</div>
-					<div class="layui-form-item">
 						<label class="layui-form-label">品种类型</label>
 						<div class="layui-input-inline">
 							<select name="type"  lay-verify="required" id="type" >
-							
+
 							</select>
 						</div>
 					</div>
+<!--					<div class="layui-form-item">-->
+
+<!--					</div>-->
 					<div class="layui-form-item">
 						<label class="layui-form-label">零售价</label>
 						<div class="layui-input-inline">
 							<input type="text" name="price" lay-verify="number" placeholder="请输入零售价" autocomplete="off" class="layui-input">
 						</div>
+						<label class="layui-form-label">进货价</label>
+						<div class="layui-input-inline">
+							<input type="text" name="cost" lay-verify="number" placeholder="默认为0" autocomplete="off"
+								   class="layui-input">
+						</div>
 					</div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">进货价</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="cost" lay-verify="number" placeholder="默认为0" autocomplete="off"
-                                   class="layui-input">
-                        </div>
-                    </div>
+
+<!--                    <div class="layui-form-item">-->
+
+<!--                    </div>-->
                     <div class="layui-form-item">
                         <label class="layui-form-label">剩余库存</label>
                         <div class="layui-input-inline">
                             <input type="text" name="num" lay-verify="integer" placeholder="请输入剩余包数" autocomplete="off"
                                    class="layui-input">
                         </div>
+						<label class="layui-form-label">规格</label>
+						<div class="layui-input-inline">
+							<input type="text" name="unit" lay-verify="required" placeholder="请输入规格" autocomplete="off"
+								   class="layui-input">
+						</div>
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">规格</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="unit" lay-verify="required" placeholder="请输入规格" autocomplete="off"
-                                   class="layui-input">
-                        </div>
-                    </div>
+<!--                    <div class="layui-form-item">-->
+
+<!--                    </div>-->
                     <div class="layui-form-item">
                         <label class="layui-form-label">生育期(天)</label>
                         <div class="layui-input-inline" style="width: 50px">

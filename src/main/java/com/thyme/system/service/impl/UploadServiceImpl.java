@@ -84,7 +84,7 @@ public class UploadServiceImpl implements UploadService {
             destFile.getParentFile().mkdirs();
         }
         //缩小并保存图片
-        Thumbnails.of(inputStream).size(550, 700).toFile(destFile);
+        Thumbnails.of(inputStream).outputQuality(1f).size(550, 700).toFile(destFile);
 
         // 输出流 输出到文件
 //        OutputStream outputStream = new FileOutputStream(destFile);

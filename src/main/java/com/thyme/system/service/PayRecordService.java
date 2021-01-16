@@ -1,6 +1,7 @@
 package com.thyme.system.service;
 
 import com.thyme.system.entity.bussiness.PayRecord;
+import com.thyme.system.entity.bussiness.Ticket;
 
 import java.util.List;
 
@@ -15,4 +16,13 @@ public interface PayRecordService {
 
     int addPayRecord(PayRecord payRecord);
 
+    int updateRecords(PayRecord payRecord);
+
+    int deleteRecord(String id);
+
+    List<Ticket> getTickets(String principalId);
+
+    int deleteTicket(String id);
+
+    int addTicket(Ticket ticket);
 }

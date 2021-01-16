@@ -34,7 +34,7 @@ layui.use(['laydate', 'form', 'table','layer'],function(){
         var data = obj.data;
         switch (obj.event) {
             case 'edit':
-                xadmin.open('编辑', context + 'product/update?id=' + data.id, 700, 550);
+                xadmin.open('编辑', context + 'product/update?id=' + data.id, 700, 500);
                 break;
             case 'del':
                 layer.confirm('确认要将所选数据删除吗？', function (res) {
@@ -97,7 +97,7 @@ layui.use(['laydate', 'form', 'table','layer'],function(){
                     {field: 'yield', minWidth: 50, title: '亩产量(公斤)'},
                     {field: 'height', minWidth: 50, title: '株高(cm)'},
                     {
-                        field: 'isShow', minWidth: 50, title: '显示状态', templet: function (d) {
+                        field: 'isShow', minWidth: 70, title: '显示状态', templet: function (d) {
                             var temp = '<input data-value="' + d.id + '" type="checkbox" name="isShow" lay-filter="showSwitch" lay-skin="switch" lay-text="显示|隐藏" ';
                             temp += d.show ? 'checked >' : ' >';
                             return temp;
@@ -111,7 +111,7 @@ layui.use(['laydate', 'form', 'table','layer'],function(){
 		    ,height:'full-100'
 			,page:true
 			,toolbar: '<div class = "layui-btn-container" > ' +
-                '<button class="layui-btn" onclick="xadmin.open(\'添加品种\',\'add\',460,550)"><i class="layui-icon"></i>添加</button>' +
+                '<button class="layui-btn" onclick="xadmin.open(\'添加品种\',\'add\',700,500)"><i class="layui-icon"></i>添加</button>' +
                 '<button class="layui-btn" lay-event = "exportData"><i class="layui-icon"></i>导出价目表</button>' +
                 '<button class="layui-btn layui-btn-warm" onclick="xadmin.open(\'类型管理\',\'addType\',500,450)"><i class="layui-icon"></i>类型管理</button>'+
 						'</div>'

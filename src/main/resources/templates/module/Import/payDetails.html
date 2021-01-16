@@ -20,14 +20,61 @@
 	</head>
 	<body>
 		<div class="layui-fluid">
-			<div class="layui-row">
-				<input type="hidden" id="principalId" th:value="${principalId}" />
-				<table class="layui-table"  lay-filter="test" id="tableTest">
-				   
-				</table>
+			<div class="layui-card">
+				<div class="layui-card-header">
+					<blockquote class="layui-elem-quote">修改信息后记得点击右上角刷新页面数据</blockquote>
+				</div>
+				<div class="layui-card-body">
+					<input type="hidden" id="principalId" th:value="${principalId}" />
+					<table class="layui-table"  lay-filter="test" id="tableTest">
+								   
+					</table>
+				</div>
 			</div>
 		</div>
 	</body>
+	<div class="layui-fluid" style="display: none;" id="payRecord">
+		<div class="layui-row">
+			<form class="layui-form" action="" id="formPayRecord">
+				<input type="hidden" name="id" id="id"/>
+				<input type="hidden" name="principalId" id="idValue" />
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">支付方式</label>
+					<div class="layui-input-inline layui-required">
+						<select name="payment" id="payment" lay-verify="required" autocomplete="off">
+							<option value='' >请选择支付方式</option>
+							<option value='微信转账' >微信转账</option>
+							<option value='现金支付' >现金支付</option>
+							<option value='银行卡转账' >银行卡转账</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">支付金额</label>
+					<div class="layui-input-inline">
+						<input type="text" id="pay" name="pay" lay-verify="number|required|limitPay" placeholder="请输入金额" autocomplete="off" class="layui-input" >
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">日期</label>
+					<div class="layui-input-inline">
+						<input class="layui-input" autocomplete="off" lay-verify="date|required" placeholder="请选择交付日期" name="payDate" id="payDate">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script type="text/html" id="barDemo">
+	    <a class="layui-btn layui-btn-sm" lay-event="edit"><i class="iconfont">&#xe69e;</i>&nbsp;修改</a>
+		<a class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+	</script>
 	<script th:inline="javascript">
 	var context = [[@{
 		/}]];

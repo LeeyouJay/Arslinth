@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -14,13 +15,17 @@ import java.util.Date;
  */
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.setFieldValByName("create_time" ,new Date(),metaObject);
+        String date = format.format(new Date());
+        this.setFieldValByName("createTime" ,date,metaObject);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName("update_time" ,new Date(),metaObject);
+        String date = format.format(new Date());
+        this.setFieldValByName("updateTime" ,date,metaObject);
     }
 }

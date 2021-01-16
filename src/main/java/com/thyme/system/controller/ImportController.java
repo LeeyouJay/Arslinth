@@ -3,6 +3,8 @@ package com.thyme.system.controller;
 import com.thyme.system.entity.SysMenu;
 import com.thyme.system.entity.bussiness.Principal;
 import com.thyme.system.entity.bussiness.Stock;
+import com.thyme.system.entity.bussiness.Ticket;
+import com.thyme.system.service.PayRecordService;
 import com.thyme.system.service.StockService;
 import com.thyme.system.service.SysMenuService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * @author Arslinth
@@ -28,6 +32,8 @@ public class ImportController {
     private final SysMenuService sysMenuService;
 
     private final StockService stockService;
+
+    private final PayRecordService payRecordService;
 
     @GetMapping("/list")
     public String productList(Model model){
@@ -77,5 +83,15 @@ public class ImportController {
     public String payDetails(@RequestParam("principalId") String principalId,Model model){
         model.addAttribute("principalId",principalId);
         return "module/Import/payDetails";
+    }
+
+    @GetMapping("/showTickets")
+    @PreAuthorize("hasAnyRole('ROLE_DEVELOPER','ROLE_MANAGER')")
+    public String showTickets(@RequestParam("principalId") String principalId,Model model){
+
+        List<Ticket> tickets = payRecordService.getTickets(principalId);
+        model.addAttribute("principalId",principalId);
+        model.addAttribute("tickets",tickets);
+        return "module/Import/tickets";
     }
 }

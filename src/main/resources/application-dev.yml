@@ -31,7 +31,8 @@ file:
   staticAccessPath: /uploadimg/**
   #文件上传目录（注意Linux和Windows上的目录结构不同，文件名不能有中文！！）
   #uploadFolder: /root/uploadFiles/
-  uploadFolder: C://Users//Arslinth//Pictures//spriingImg//
+  #uploadFolder: C://Users//Arslinth//Pictures//spriingImg//
+  uploadFolder: C:\Users\UID\Pictures\springbootImg//
 
 #SSL证书访问
 server:
