@@ -36,6 +36,10 @@ public class Stock implements Serializable {
     @ExcelProperty(value = "数量(包)")
     private int count;
 
+    @ExcelProperty(value = "规格")
+    @TableField(exist = false)
+    private String standards;
+
     @ExcelProperty(value = "单价")
     private double cost;
 
@@ -64,12 +68,19 @@ public class Stock implements Serializable {
 
     }
 
-    public Stock(String id, String productId, String principalId, String type, int count, double cost, double price, String inDate, int unit, String remark, String pdName, String pcpName, boolean single, String updateTime) {
+    public Stock(String id, String productId,
+                 String principalId, String type,
+                 int count, String standards,
+                 double cost, double price,
+                 String inDate, int unit, String remark,
+                 String pdName, String pcpName,
+                 boolean single, String updateTime) {
         this.id = id;
         this.productId = productId;
         this.principalId = principalId;
         this.type = type;
         this.count = count;
+        this.standards = standards;
         this.cost = cost;
         this.price = price;
         this.inDate = inDate;

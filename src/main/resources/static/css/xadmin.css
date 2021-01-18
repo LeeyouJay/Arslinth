@@ -531,4 +531,8 @@ table th, table td {
     font-size: 300px;
     color: #393D49;
 }
-
+.help-block{
+    float: right;
+    color: #f8020296;
+    font-size: 12px;
+}

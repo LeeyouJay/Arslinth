@@ -27,6 +27,13 @@
 						<label class="layui-form-label">姓名</label>
 						<div class="layui-input-inline layui-required">
 							<input type="text" name="pcpName" required lay-verify="required|pcpName" placeholder="请输入姓名" autocomplete="off" class="layui-input" th:value="${principal.pcpName}">
+							<p class="help-block">(必填项)</p>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">公司名称</label>
+						<div class="layui-input-inline">
+							<input type="text" name="company" placeholder="请输入公司名称" autocomplete="off" class="layui-input" th:value="${principal.company}">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -42,17 +49,17 @@
 						</div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">邮政卡号</label>
+						<label class="layui-form-label">银行卡号</label>
 						<div class="layui-input-inline">
-							<input type="text" name="PSBC" lay-verify="number|numberLong" placeholder="请输入邮政卡号" autocomplete="off" class="layui-input" th:value="${principal.PSBC}">
+							<input type="text" name="PSBC" lay-verify="number|numberLong" placeholder="请输入转账卡号" autocomplete="off" class="layui-input" th:value="${principal.PSBC}">
 						</div>
 					</div>
-					<div class="layui-form-item">
+<!-- 					<div class="layui-form-item">
 						<label class="layui-form-label">信用卡号</label>
 						<div class="layui-input-inline">
 							<input type="text" name="RCU" lay-verify="number|numberLong" placeholder="请输入信用卡号" autocomplete="off" class="layui-input" th:value="${principal.RCU}">
 						</div>
-					</div>
+					</div> -->
 					<div class="layui-form-item">
 						<div class="layui-input-block">
 							<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>

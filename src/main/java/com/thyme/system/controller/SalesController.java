@@ -51,4 +51,12 @@ public class SalesController {
         return "module/sales/addDistrict";
     }
 
+    @GetMapping("/returnList")
+    public String returnList(Model model){
+        SysMenu sysMenu = sysMenuService.getByHref("sales/returnList");
+        SysMenu parentMenu = sysMenuService.getById(sysMenu.getParentId());
+        model.addAttribute("menuName",sysMenu.getMenuName());
+        model.addAttribute("parentName",parentMenu.getMenuName());
+        return "module/sales/returnList";
+    }
 }

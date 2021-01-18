@@ -232,6 +232,7 @@ public class StockServiceImpl implements StockService {
             Principal buildPrincipal = Principal.builder()
                     .id(UUIDUtils.getUUID())
                     .pcpName(principal.getPcpName())
+                    .company(principal.getCompany())
                     .address(principal.getAddress())
                     .tel(principal.getTel())
                     .PSBC(principal.getPSBC())

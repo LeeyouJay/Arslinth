@@ -52,7 +52,6 @@ public class MybatisTest {
                 .id(uuid)
                 .name("admin")
                 .password("123")
-                .createTime(new Date())
                 .build()
         );
     }

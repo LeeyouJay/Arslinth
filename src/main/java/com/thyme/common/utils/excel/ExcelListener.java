@@ -65,6 +65,7 @@ public class ExcelListener extends AnalysisEventListener<Stock> {
                     .cost(stock.getCost())
                     .pdName(stock.getPdName())
                     .num(stock.getCount())
+                    .unit(stock.getStandards())
                     .characters("")
                     .build());
         }else{
@@ -72,7 +73,9 @@ public class ExcelListener extends AnalysisEventListener<Stock> {
                 .pdName(stock.getPdName())
                 .num(stock.getCount())
                 .cost(stock.getCost())
-                .price(stock.getPrice()).build());
+                .price(stock.getPrice())
+                .unit(stock.getStandards())
+                .build());
             stock.setProductId(productById.getId());
         }
         stockService.addStock(stock);

@@ -15,10 +15,11 @@
 						[
 							{field: 'id', title: 'ID', hide: true},
 							{field: 'pcpName', width: 180, title: '姓名', align: 'center', sort: true},
+							{field: 'company', minWidth: 50, title: '公司名称'},
 							{field: 'tel', minWidth: 50, title: '联系电话'},
 							{field: 'address', minWidth: 80, title: '地址'},
-							{field: 'PSBC', minWidth: 80, title: '邮政卡号'},
-							{field: 'RCU', minWidth: 140, title: '信用卡号'},
+							{field: 'PSBC', minWidth: 80, title: '银行卡号'},
+							// {field: 'RCU', minWidth: 140, title: '信用卡号'},
 							{fixed: 'right', title: '操作', toolbar: '#barDemo', width: 200, align: 'center'}
 						]
 					]
@@ -65,7 +66,7 @@
 			});
 			form.on('submit(formDemo)', function(data) {
 				var principal = data.field;
-				
+
 				addPrincipal(principal);
 				return false;
 			});

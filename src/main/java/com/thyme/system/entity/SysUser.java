@@ -40,15 +40,15 @@ public class SysUser implements Serializable {
 
     private String liveAddress;
 
-    private Date createTime;
+    private String createTime;
 
-    private Date updateTime;
+    private String updateTime;
 
     public SysUser(){
 
     }
 
-    public SysUser(String id, String name, String password, String nickName, String avatar, String sex, String mobile, String email, String birthday, String hobby, String liveAddress, Date createTime, Date updateTime) {
+    public SysUser(String id, String name, String password, String nickName, String avatar, String sex, String mobile, String email, String birthday, String hobby, String liveAddress, String createTime, String updateTime) {
         this.id = id;
         this.name = name;
         this.password = password;

@@ -32,17 +32,17 @@
 							{field:'productId', title:'productId',hide:true},
 							{field:'principalId', title:'principalId',hide:true},
 							{type:'checkbox'},
+							{field:'inDate',  minWidth: 100,title:'进货时间',sort:true},
 							{field:'pdName', width:120,title:'品种名称',totalRowText: '本页小计'},
 							{field:'count',  minWidth: 100,title:'数量(包)',sort:true},
 							{field:'unit',  minWidth: 80,title:'件数',sort:true,totalRow:true},
 							{field:'cost',  minWidth: 90,title:'进货价'},
 							{field:'price',  minWidth: 90,title:'零售价'},
 							{field:'pcpName',  minWidth: 110,title:'公司或负责人'},
+							{field:'remark',  minWidth: 160,title:'备注'},
 							{field:'totalCost',  minWidth: 100,title:'进货总价',totalRow:true,sort:true},
 							{field:'totalPrice',  minWidth: 100,title:'零售总价',totalRow:true,sort:true},
 							{field:'earning',  minWidth: 100,title:'预期利润',totalRow:true,sort:true},
-							{field:'remark',  minWidth: 160,title:'备注'},
-							{field:'inDate',  minWidth: 100,title:'进货时间',sort:true},
 							{field:'updateTime',  minWidth: 150,title:'最后修改时间',sort:true},
 				            {fixed: 'right', title:'操作', toolbar: '#barDemo', width: 100,align:'center'}
 						]
@@ -298,6 +298,7 @@
 								icon: 1,
 								time: 2000
 							}, function() {
+								$("#formAddStock")[0].reset();
 								layer.close(index);
 								getStockList();
 							});

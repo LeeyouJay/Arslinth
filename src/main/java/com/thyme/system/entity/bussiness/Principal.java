@@ -20,6 +20,8 @@ public class Principal {
 
     private String pcpName;
 
+    private String company;
+
     private String tel;
 
     private String address;
@@ -36,9 +38,10 @@ public class Principal {
 
     }
 
-    public Principal(String id, String pcpName, String tel, String address, Date creatTime, String PSBC, String RCU) {
+    public Principal(String id, String pcpName, String company, String tel, String address, Date creatTime, String PSBC, String RCU) {
         this.id = id;
         this.pcpName = pcpName;
+        this.company = company;
         this.tel = tel;
         this.address = address;
         CreatTime = creatTime;

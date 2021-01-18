@@ -113,7 +113,7 @@ public class UserRestController {
                 .birthday(userVO.getBirthday())
                 .hobby(userVO.getHobby())
                 .liveAddress(userVO.getLiveAddress())
-                .createTime(new Date()).build();
+                .build();
         try {
             synchronized (this) {
                 sysUserRoleService.deleteByUserId(userVO.getId());
@@ -160,7 +160,7 @@ public class UserRestController {
                     .birthday(userVO.getBirthday())
                     .hobby(userVO.getHobby())
                     .liveAddress(userVO.getLiveAddress())
-                    .createTime(new Date()).build();
+                    .build();
             if (userService.insert(sysUser) > 0) {
                 jsonObject.put("code", 200);
             } else {
@@ -212,7 +212,6 @@ public class UserRestController {
         sysUser.setBirthday(userVO.getBirthday());
         sysUser.setHobby(userVO.getHobby());
         sysUser.setLiveAddress(userVO.getLiveAddress());
-        sysUser.setUpdateTime(new Date());
         if (userService.updateById(sysUser) > 0) {
             jsonObject.put("code", 200);
             return ApiResponse.ofSuccess(jsonObject);

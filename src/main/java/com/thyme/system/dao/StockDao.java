@@ -80,10 +80,10 @@ public interface StockDao extends BaseMapper<Stock> {
             "</script>")
     List<Principal> getPrincipals(@Param("pcpName") String pcpName);
 
-    @Insert("INSERT INTO principal (id,pcp_name,tel,address,PSBC,RCU,create_time) VALUES (#{id},#{pcpName},#{tel},#{address},#{PSBC},#{RCU},NOW())")
+    @Insert("INSERT INTO principal (id,pcp_name,company,tel,address,PSBC,RCU,create_time) VALUES (#{id},#{pcpName},#{company},#{tel},#{address},#{PSBC},#{RCU},NOW())")
     int addPrincipal(Principal principal);
 
-    @Update("UPDATE principal SET pcp_name = #{pcpName},tel=#{tel},address = #{address} ,PSBC=#{PSBC} ,RCU=#{RCU} WHERE id = #{id}")
+    @Update("UPDATE principal SET pcp_name = #{pcpName},company = #{company},tel=#{tel},address = #{address} ,PSBC=#{PSBC} WHERE id = #{id}")
     int updatePrincipal(Principal principal);
 
     @Delete("DELETE FROM principal WHERE id = #{id}")
