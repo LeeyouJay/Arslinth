@@ -35,6 +35,8 @@ public class Product {
 
     private String unit;
 
+    private int numUnit =1;
+
     private boolean isShow;
 
     private String characters;
@@ -42,7 +44,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String id, String pdName, String type, double price, double cost, int periodMin, int periodMax, double yield, double height, double num, String unit, boolean isShow, String characters) {
+    public Product(String id, String pdName, String type, double price, double cost, int periodMin, int periodMax, double yield, double height, double num, String unit, int numUnit, boolean isShow, String characters) {
         this.id = id;
         this.pdName = pdName;
         this.type = type;
@@ -54,6 +56,7 @@ public class Product {
         this.height = height;
         this.num = num;
         this.unit = unit;
+        this.numUnit = numUnit;
         this.isShow = isShow;
         this.characters = characters;
     }

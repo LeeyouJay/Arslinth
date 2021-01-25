@@ -59,7 +59,7 @@ public class ExcelListener extends AnalysisEventListener<Stock> {
             String productId = UUIDUtils.getUUID();
             stock.setProductId(productId);
             productImgDao.insert(ProductImg.builder().pdName(stock.getPdName()).build());
-            productDao.addProduct(Product.builder()
+            Product product = Product.builder()
                     .id(productId)
                     .price(stock.getPrice())
                     .cost(stock.getCost())
@@ -67,15 +67,23 @@ public class ExcelListener extends AnalysisEventListener<Stock> {
                     .num(stock.getCount())
                     .unit(stock.getStandards())
                     .characters("")
-                    .build());
+                    .build();
+            if(stock.getUnit()!=0)
+                product.setNumUnit(stock.getCount()/stock.getUnit());
+
+            productDao.addProduct(product);
         }else{
-            productDao.updateNumByName(Product.builder()
-                .pdName(stock.getPdName())
-                .num(stock.getCount())
-                .cost(stock.getCost())
-                .price(stock.getPrice())
-                .unit(stock.getStandards())
-                .build());
+            Product product = Product.builder()
+                    .pdName(stock.getPdName())
+                    .num(stock.getCount())
+                    .cost(stock.getCost())
+                    .price(stock.getPrice())
+                    .unit(stock.getStandards())
+                    .build();
+            if(stock.getUnit()!=0)
+                product.setNumUnit(stock.getCount()/stock.getUnit());
+
+            productDao.updateNumByName(product);
             stock.setProductId(productById.getId());
         }
         stockService.addStock(stock);

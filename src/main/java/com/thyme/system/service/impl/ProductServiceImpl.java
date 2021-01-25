@@ -41,8 +41,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductImgDao productImgDao;
 
     @Override
-    public List<Product> getProducts(String productName) {
-        return productDao.getProducts(productName);
+    public List<Product> getProducts(String productName,String typeId) {
+        return productDao.getProducts(productName,typeId);
     }
 
     @Override
@@ -179,8 +179,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int updateUnit(String unit, String id) {
-        return productDao.updateUnit(unit, id);
+    public int updateUnit(String unit,String numUnit, String id) {
+        return productDao.updateUnit(unit,numUnit, id);
     }
 
     @Override

@@ -13,21 +13,23 @@ layui.use(['laydate', 'form', 'table','layer'],function(){
 		getProductList()
 		return false
 	})
+	
 	form.on('select(stateSelect)',function(data){
-        var typeId = data.value;
-        var productId = data.elem.dataset.value;
-        var innerText = this.innerText
-        updateProductType(productId, typeId, innerText);
-    })
+	    var typeId = data.value;
+	    var productId = data.elem.dataset.value;
+	    var innerText = this.innerText
+	    updateProductType(productId, typeId, innerText);
+	})
+	
     form.on('switch(showSwitch)', function (data) {
         var isShow = data.elem.checked;
         var productId = data.elem.dataset.value;
         changeStatus(productId, isShow)
     })
     table.on('edit(test)', function (obj) {
-        var value = obj.value
-        var data = obj.data
-        updateUnit(data.id, value)
+		var nubmer = obj.value
+        var data = obj.data		
+        updateUnit(data.id, data.unit,data.numUnit)
         //layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
     });
     table.on('tool(test)', function (obj) {
@@ -89,6 +91,7 @@ layui.use(['laydate', 'form', 'table','layer'],function(){
                     {field: 'cost', minWidth: 50, title: '进货价'},
                     {field: 'num', minWidth: 50, title: '库存', sort: true},
                     {field: 'unit', minWidth: 50, title: '规格', edit: 'text'},
+					{field: 'numUnit', minWidth: 50, title: '包/件', edit: 'text'},
                     {
                         field: 'period', minWidth: 50, title: '生育期(天)', templet: function (d) {
                             return d.periodMin + ' ~ ' + d.periodMax
@@ -103,7 +106,7 @@ layui.use(['laydate', 'form', 'table','layer'],function(){
                             return temp;
                         }
                     },
-                    {title: '操作', align: 'center', toolbar: '#barDemo', width: 220}
+                    {fixed: 'right',title: '操作', align: 'center', toolbar: '#barDemo', width: 220}
                 ]
 			]
 		    ,limit:20
@@ -149,10 +152,20 @@ layui.use(['laydate', 'form', 'table','layer'],function(){
 			success: function(res) {
 				if(res.code === 200){
 					typeList = res.data.typeList;
+					initTableType(typeList);
 				}else
 					layer.msg(res.message,{icon:2})
 			}
 		});
+	}
+	function initTableType(typeData){
+		$('#type').html();
+		var temp="<option value='' >请选择品种类型</option>"
+		for (var i = 0; i < typeData.length; i++) {
+			temp+=" <option value='" + typeData[i].id + "'>" + typeData[i].typeName + "</option>"
+		}
+		$('#type').append(temp);
+		form.render('select');
 	}
 	function updateProductType(productId,typeId,innerText){
 		$.ajax({
@@ -191,13 +204,17 @@ layui.use(['laydate', 'form', 'table','layer'],function(){
         });
     }
 
-    function updateUnit(productId, unit) {
+    function updateUnit(productId, unit,numUnit) {
+		if(isNaN(Number(numUnit))){
+			layer.alert("请输入数字！");
+			return
+		}
         $.ajax({
-            url: context + 'product/updateUnit?id=' + productId + '&unit=' + unit,
+            url: context + 'product/updateUnit?id=' + productId + '&unit=' + unit+'&numUnit=' + Number(numUnit),
             type: 'GET',
             success: function (res) {
                 if (res.code === 200) {
-                    layer.msg(res.message + unit);
+                    layer.msg(res.message);
                 } else
                     layer.msg(res.message, {icon: 2})
             },

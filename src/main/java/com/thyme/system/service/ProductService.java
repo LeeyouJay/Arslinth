@@ -17,7 +17,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    List<Product> getProducts(String productName);
+    List<Product> getProducts(String productName,String typeId);
 
     int addProduct(Product product);
 
@@ -41,7 +41,7 @@ public interface ProductService {
 
     int updateStatus(String id, boolean isShow);
 
-    int updateUnit(String unit, String id);
+    int updateUnit(String unit, String numUnit,String id);
 
     List<ExportExcelData> forExport();
 }

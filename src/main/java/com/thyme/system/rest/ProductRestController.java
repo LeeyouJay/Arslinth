@@ -63,7 +63,7 @@ public class ProductRestController {
     public ApiResponse getProducts(@RequestBody SearchVO searchVO){
 
         JSONObject jsonObject = new JSONObject();
-        List<Product> products = productService.getProducts(searchVO.getSearchName());
+        List<Product> products = productService.getProducts(searchVO.getSearchName(),searchVO.getOther());
         jsonObject.put("products",products);
         jsonObject.put("total",products.size());
 
@@ -240,10 +240,10 @@ public class ProductRestController {
     @GetMapping("/updateUnit")
     @PreAuthorize("hasAnyRole('ROLE_DEVELOPER','ROLE_MANAGER')")
     @ResponseBody
-    public ApiResponse updateUnit(@RequestParam("id") String id, @RequestParam("unit") String unit) {
-        int i = productService.updateUnit(unit, id);
+    public ApiResponse updateUnit(@RequestParam("id") String id, @RequestParam("unit") String unit, @RequestParam("numUnit")String numUnit) {
+        int i = productService.updateUnit(unit, numUnit,id);
         if (i == 1) {
-            return ApiResponse.success("规格更改为：");
+            return ApiResponse.success("修改成功！");
         } else
             return ApiResponse.fail("更改出现异常！");
     }
