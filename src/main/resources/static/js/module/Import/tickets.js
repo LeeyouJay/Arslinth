@@ -35,7 +35,7 @@
 			});
 			function initTickets(tickets){
 				$('#showTickets').html();
-				let temp ="";
+				var temp ="";
 				for (var i = 0; i < tickets.length; i++) {
 					tickets[i].url = context+tickets[i].url.substring(1)
 					temp+='<div class="layui-card">'+

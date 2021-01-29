@@ -6,6 +6,10 @@ server:
       timeout: 1800
   connection-timeout: 10000
   port: 8600
+  compression:
+    enabled: true
+#    min-response-size: 1024
+    mime-types: application/javascript,application/json,application/xml,text/html,text/xml,text/plain,text/css
 spring:
   profiles:
     active: dev
@@ -27,7 +31,7 @@ spring:
   servlet:
     multipart:
       #最大单个上传文件大小
-      max-file-size: 3MB
+      max-file-size: 5MB
       #最大总文件上传大小
       max-request-size: 10MB
 mybatis-plus:

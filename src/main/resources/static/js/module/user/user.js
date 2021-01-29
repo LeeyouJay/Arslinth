@@ -67,4 +67,61 @@ layui.use(['laydate', 'form', 'laypage'], function() {
 		$('#usersTable').html(temp);
 	}
 });
-
+		/*用户-删除*/
+		function member_del(obj, id) {
+			layer.confirm('确认要删除吗？', function(index) {
+				$.ajax({
+					url: context + 'user/deleteUser?id=' + id,
+					type: 'GET',
+					success: function(res) {
+						if (res.code === 200) {
+							if (res.data.code === 200) {
+								layer.msg('已删除!', {
+									icon: 1,
+									time: 1000
+								}, function() {
+									$(obj).parents("tr").remove();
+								});
+							} else if (res.data.code === 500) {
+								layer.msg("操作失败");
+							}
+						} else {
+							layer.msg(res.message);
+						}
+					},
+					error:function(res){
+						if(res.status ===403){
+							layui.layer.msg("您没有足够的权限！",{icon:2})
+						}
+					}
+				});
+			});
+		}
+		
+		//重置密码
+		function editPassword(id) {
+			layui.layer.confirm('该用户密码将重置为123456，是否确认？', {
+				btn: ['确认', '取消'] //按钮
+			}, function() {
+				$.ajax({
+					url: context + 'user/editPassword?id=' + id,
+					type: 'GET',
+					success: function(res) {
+						if (res.code === 200) {
+							if (res.data.code === 200) {
+								layer.msg("重置密码操作成功");
+							} else if (res.data.code === 500) {
+								layer.msg("重置密码操作失败");
+							}
+						}
+					},
+					error:function(res){
+						if(res.status ===403){
+							layui.layer.msg("您没有足够的权限！",{icon:2})
+						}
+					}
+				});
+			}, function() {
+				//取消
+			});
+		}

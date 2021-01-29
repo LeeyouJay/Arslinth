@@ -52,18 +52,26 @@
                             </form>
                         </div>
                         <div class="layui-card-body ">
-                            <div class="layui-tab" lay-filter="test1">
+                            <div class="layui-tab" lay-filter="element">
                                 <ul class="layui-tab-title">
-                                    <li class="layui-this" lay-id="orders">出售列表</li>
-                                    <li lay-id="delOrders">恢复列表</li>
+                                    <li class="layui-this" lay-id="orders">发票记录</li>
+									<li lay-id="salesOrders">批发记录</li>
+                                    <li lay-id="delOrders">发票恢复</li>
+									<li lay-id="delSales">批发恢复</li>
                                 </ul>
                                 <div class="layui-tab-content">
                                     <div class="layui-tab-item layui-show">
                                         <table class="layui-table" lay-filter="test" id="tableTest"></table>
                                     </div>
                                     <div class="layui-tab-item">
-                                        <table class="layui-table" lay-filter="test" id="tableTest1"></table>
+                                        <table class="layui-table" lay-filter="test1" id="tableTest1"></table>
                                     </div>
+									<div class="layui-tab-item">
+									    <table class="layui-table" lay-filter="test" id="tableTest2"></table>
+									</div>
+									<div class="layui-tab-item">
+									    <table class="layui-table" lay-filter="test1" id="tableTest3"></table>
+									</div>
                                 </div>
                             </div>
                         </div>
@@ -73,13 +81,21 @@
         </div>
     </body>
     <script type="text/html" id="barDemo">
-        <a class="layui-btn layui-btn-sm" lay-event="details"><i class="iconfont">&#xe69e;</i>&nbsp;交易明细</a>
+        <a class="layui-btn layui-btn-sm" lay-event="orderDetails"><i class="iconfont">&#xe69e;</i>&nbsp;交易明细</a>
     </script>
-    <script type="text/html" id="barDemo1">
-        <a class="layui-btn layui-btn-sm" lay-event="details"><i class="iconfont">&#xe69e;</i>&nbsp;交易明细</a>
+	<script type="text/html" id="barDemo1">
+	    <a class="layui-btn layui-btn-sm" lay-event="salesDetails"><i class="iconfont">&#xe69e;</i>&nbsp;交易明细</a>
+	</script>
+    <script type="text/html" id="barDemo2">
+        <a class="layui-btn layui-btn-sm" lay-event="orderDetails"><i class="iconfont">&#xe69e;</i>&nbsp;交易明细</a>
         <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="recovery"><i
                 class="iconfont">&#xe6aa;</i>&nbsp;恢复</a>
     </script>
+	<script type="text/html" id="barDemo3">
+	    <a class="layui-btn layui-btn-sm" lay-event="salesDetails"><i class="iconfont">&#xe69e;</i>&nbsp;交易明细</a>
+	    <a class="layui-btn layui-btn-warm layui-btn-sm" lay-event="recovery"><i
+	            class="iconfont">&#xe6aa;</i>&nbsp;恢复</a>
+	</script>
     <script th:inline="javascript">
         var context = [[@{
             /}]];

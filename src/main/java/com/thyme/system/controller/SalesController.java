@@ -45,6 +45,11 @@ public class SalesController {
         model.addAttribute("OrderId",OrderId);
         return "module/sales/orderDetails";
     }
+    @GetMapping("/salesDetails")
+    public String salesDetails(@RequestParam("OrderId") String OrderId, Model model){
+        model.addAttribute("OrderId",OrderId);
+        return "module/sales/salesDetails";
+    }
 
     @GetMapping("/addDistrict")
     public String addDistrict(){

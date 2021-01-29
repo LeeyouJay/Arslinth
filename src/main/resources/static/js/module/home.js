@@ -18,9 +18,9 @@ layui.use(['form', 'laydate'], function () {
 	$ = layui.jquery;
 	var laydate = layui.laydate;
 	var form = layui.form;
-	let text = "";
-	for (let i = 0; i < LogList.length; i++) {
-		let context = "";
+	var text = "";
+	for (var i = 0; i < LogList.length; i++) {
+		var context = "";
 		if (LogList[i].context.indexOf("。") !== -1)
 			context = LogList[i].context.split("。")
 
@@ -32,7 +32,7 @@ layui.use(['form', 'laydate'], function () {
 			'<p>' +
 			LogList[i].title +
 			'<ul>'
-		for (let j = 0; j < context.length - 1; j++) {
+		for (var j = 0; j < context.length - 1; j++) {
 			text += '<li>' + context[j] + '</li>'
 		}
 		text += '</ul>' +

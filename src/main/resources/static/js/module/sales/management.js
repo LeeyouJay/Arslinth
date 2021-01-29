@@ -13,6 +13,8 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 	});
 	getAllOrderProduct();
 	getOrders();
+	getSales();
+	getDelSales();
 
 	function renderTable(orderList) {
 		table.render({
@@ -37,7 +39,32 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 			height: 'full-100',
 			page: true,
 			toolbar: '<div class = "layui-btn-container" > ' +
+				'<button class = "layui-btn layui-btn-danger" lay-event = "getCheckData"><i class="layui-icon">&#xe640;</i>批量删除 </button>' +
 				'<button class="layui-btn layui-btn-warm" onclick="xadmin.open(\'地区管理\',\'addDistrict\',500,570)"><i class="layui-icon"></i>地区管理</button>' +
+				'</div>'
+		})
+	}
+	function renderSalesTable(orderList) {
+		table.render({
+			elem: '#tableTest1',
+			data: orderList,
+			cols: [
+				[
+					{type: 'checkbox'},
+					{field: 'id', title: 'ID', hide: true},
+					{field: 'consumer', width: 180, title: '姓名', align: 'center'},
+					{field: 'phone', minWidth: 200, title: '联系电话'},
+					{field: 'createTime', minWidth: 200, title: '交易时间', sort: true},
+					{field: 'totalPrice', minWidth: 50, title: '交易金额', sort: true},
+					{field: 'payType', minWidth: 50, title: '支付方式'},
+					{fixed: 'right', title: '操作', toolbar: '#barDemo1', minWidth: 120, align: 'center'}
+				]
+			],
+			limit: 20,
+			limits: [20, 30, 40, 50],
+			height: 'full-100',
+			page: true,
+			toolbar: '<div class = "layui-btn-container" > ' +
 				'<button class = "layui-btn layui-btn-danger" lay-event = "getCheckData"><i class="layui-icon">&#xe640;</i>批量删除 </button>' +
 				'</div>'
 		})
@@ -45,7 +72,7 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 
 	function renderDelTable(orderList) {
 		table.render({
-			elem: '#tableTest1',
+			elem: '#tableTest2',
 			data: orderList,
 			cols: [
 				[
@@ -57,7 +84,29 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 					{field: 'totalPrice', minWidth: 50, title: '交易金额', sort: true},
 					{field: 'payType', minWidth: 50, title: '支付方式'},
 					{field: 'checker', minWidth: 80, title: '收款人'},
-					{fixed: 'right', title: '操作', toolbar: '#barDemo1', minWidth: 220, align: 'center'}
+					{fixed: 'right', title: '操作', toolbar: '#barDemo2', minWidth: 220, align: 'center'}
+				]
+			],
+			limit: 20,
+			limits: [20, 30, 40, 50],
+			height: 'full-100',
+			page: true
+		})
+	}
+	function renderSalesDelTable(orderList) {
+		table.render({
+			elem: '#tableTest3',
+			data: orderList,
+			cols: [
+				[
+					{type: 'checkbox'},
+					{field: 'id', title: 'ID', hide: true},
+					{field: 'consumer', width: 180, title: '姓名', align: 'center'},
+					{field: 'phone', minWidth: 200, title: '联系电话'},
+					{field: 'createTime', minWidth: 200, title: '交易时间', sort: true},
+					{field: 'totalPrice', minWidth: 50, title: '交易金额', sort: true},
+					{field: 'payType', minWidth: 50, title: '支付方式'},
+					{fixed: 'right', title: '操作', toolbar: '#barDemo3', minWidth: 120, align: 'center'}
 				]
 			],
 			limit: 20,
@@ -112,6 +161,24 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 			}
 		});
 	}
+	function getSales() {
+		$.ajax({
+			url: context + 'order/getSales',
+			type: 'POST',
+			data: JSON.stringify(searchVO),
+			dataType: 'json',
+			contentType: 'application/json',
+			async: false,
+			success: function (data) {
+				if (data.code === 200) {
+					var orderList = data.data.orderList;
+					renderSalesTable(orderList);
+				} else {
+					layui.layer.msg(data.message);
+				}
+			}
+		});
+	}
 
 	function getDelOrders() {
 		$.ajax({
@@ -125,6 +192,24 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 				if (data.code === 200) {
 					var orderList = data.data.orderList;
 					renderDelTable(orderList);
+				} else {
+					layui.layer.msg(data.message);
+				}
+			}
+		});
+	}
+	function getDelSales() {
+		$.ajax({
+			url: context + 'order/getDelSales',
+			type: 'POST',
+			data: JSON.stringify(searchVO),
+			dataType: 'json',
+			contentType: 'application/json',
+			async: false,
+			success: function (data) {
+				if (data.code === 200) {
+					var orderList = data.data.orderList;
+					renderSalesDelTable(orderList);
 				} else {
 					layui.layer.msg(data.message);
 				}
@@ -157,6 +242,31 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 		});
 
 	}
+	function recoverySale(id) {
+		$.ajax({
+			url: context + 'order/recoverySale?id=' + id,
+			type: 'GET',
+			success: function (res) {
+				if (res.code === 200) {
+					layui.layer.msg(res.message, {
+						icon: 1,
+						time: 2000
+					}, function () {
+						getDelSales();
+					});
+				} else {
+					layer.msg(res.message);
+				}
+			},
+			error: function (res) {
+				if (res.status === 403) {
+					layer.msg("您没有足够的权限！", {icon: 2})
+				} else
+					layer.alert("Connection error");
+			}
+		});
+	
+	}
 
 	function deleteOrders(ids) {
 		$.ajax({
@@ -184,15 +294,47 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 			}
 		});
 	}
+	function deleteSales(ids) {
+		$.ajax({
+			cache: true,
+			type: "POST",
+			url: context + 'order/deleteSales',
+			data: JSON.stringify(ids),
+			dataType: 'json',
+			contentType: 'application/json',
+			error: function (res) {
+				if (res.status === 403) {
+					layui.layer.msg("您没有足够的权限！", {icon: 2})
+				} else
+					layer.alert("Connection error");
+			},
+			success: function (data) {
+				if (data.code === 200) {
+					layer.msg(data.message, {
+						icon: 1,
+						time: 2000
+					});
+					getSales();
+				} else
+					layer.msg(data.message, {icon: 2})
+			}
+		});
+	}
 
-	element.on('tab(test1)', function (data) {
+	element.on('tab(element)', function (data) {
 		console.log(data.index)
 		switch (data.index) {
 			case 0:
 				getOrders();
 				break;
 			case 1:
+				getSales();
+				break;
+			case 2:
 				getDelOrders();
+				break;
+			case 3:
+				getDelSales();
 				break;
 		}
 		return false
@@ -200,7 +342,9 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 	form.on('submit(sreach)', function (data) {
 		searchVO = data.field
 		getOrders();
+		getSales();
 		getDelOrders();
+		getDelSales();
 		return false
 	});
 
@@ -208,12 +352,26 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 		var layEvent = obj.event;
 		var data = obj.data;
 		switch (layEvent) {
-			case 'details':
+			case 'orderDetails':
 				xadmin.open('订单详情', context + 'sales/orderDetails?OrderId=' + data.id, 460, 450);
 				break;
 			case 'recovery':
 				layer.confirm('确认要将此订单恢复吗？', function (res) {
 					recoveryOrder(data.id);
+				});
+				break;
+		}
+	});
+	table.on('tool(test1)', function (obj) {
+		var layEvent = obj.event;
+		var data = obj.data;
+		switch (layEvent) {
+			case 'salesDetails':
+				xadmin.open('订单详情', context + 'sales/salesDetails?OrderId=' + data.id, 460, 450);
+				break;
+			case 'recovery':
+				layer.confirm('确认要将此订单恢复吗？', function (res) {
+					recoverySale(data.id)
 				});
 				break;
 		}
@@ -234,6 +392,26 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 				}
 				layer.confirm('确认要将所选数据删除吗？', function (res) {
 					deleteOrders(ids);
+				});
+				break;
+		}
+	})
+	table.on('toolbar(test1)', function (obj) {
+		var checkStatus = table.checkStatus(obj.config.id);
+		var data = obj.data;
+		switch (obj.event) {
+			case 'getCheckData':
+				var data = checkStatus.data;
+				if (data.length == 0) {
+					layer.msg('请先选择要删除的数据', {icon: 2})
+					break;
+				}
+				var ids = new Array();
+				for (var i = 0; i < data.length; i++) {
+					ids.push(data[i].id);
+				}
+				layer.confirm('确认要将所选数据删除吗？', function (res) {
+					deleteSales(ids);
 				});
 				break;
 		}
