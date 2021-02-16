@@ -43,6 +43,8 @@ public class RemittanceRestController {
     public ApiResponse getRemittances(@RequestParam("name")String pcpName){
         JSONObject jsonObject = new JSONObject();
         List<RemittanceVO> remittances = remittanceService.getRemittances(pcpName);
+
+
         jsonObject.put("remittances",remittances);
         jsonObject.put("total",remittances.size());
         return ApiResponse.ofSuccess(jsonObject);

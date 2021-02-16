@@ -21,7 +21,8 @@
                             {field: 'pcpName', width: 160, title: '姓名', align: 'center', totalRowText: '本页小计'},
                             {field: 'totalCount', minWidth: 50, title: '总进货量(包)', totalRow: true, sort: true},
                             {field: 'totalCost', minWidth: 50, title: '总进货额(元)', totalRow: true, sort: true},
-                            {field: 'totalPay', minWidth: 80, title: '已付款额(元)', totalRow: true},
+                            {field: 'returnedCost', minWidth: 50, title: '退货额', totalRow: true},
+							{field: 'totalPay', minWidth: 80, title: '已付款额(元)', totalRow: true},
                             {field: 'debt', minWidth: 80, title: '结算', totalRow: true},
                             {fixed: 'right',title: '操作', align: 'center', toolbar: '#barDemo',width:300}
                         ]

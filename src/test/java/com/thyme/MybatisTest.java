@@ -9,9 +9,11 @@ import com.thyme.common.base.Constants;
 import com.thyme.common.utils.FileUtils;
 import com.thyme.system.dao.*;
 import com.thyme.system.entity.SysUser;
+import com.thyme.system.entity.bussiness.Product;
 import com.thyme.system.entity.bussiness.Region;
 import com.thyme.system.entity.bussiness.Ticket;
 import com.thyme.system.service.*;
+import com.thyme.system.service.impl.ReturnedService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +44,10 @@ public class MybatisTest {
     private SysUserDao userDao;
 
     @Autowired
-    private TicketDao ticketDao;
+    private ProductDao productDao;
+
+    @Autowired
+    private ReturnedService returnedService;
 
     @Test
     public void insert() {
@@ -97,13 +102,14 @@ public class MybatisTest {
     @Test
     public void autoFill(){
 
-//        Ticket ticket = Ticket.builder().id("213123")
-//                .url("dsad w")
-//                .principalId("12311").build();
-//
-//        ticketDao.insert(ticket);
+        productDao.updateNumByName(Product.builder()
+                .pdName("糯米809")
+                .num(50)
+                .cost(45)
+                .price(50)
+                .build());
 
-        System.out.println(ticketDao.getTicketsByPcpId("12311"));
+
     }
 
 }

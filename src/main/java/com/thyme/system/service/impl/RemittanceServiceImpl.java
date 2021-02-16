@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.thyme.common.utils.MoneyUtils;
 import com.thyme.system.dao.RemittanceDao;
+import com.thyme.system.dao.ReturnedDao;
 import com.thyme.system.entity.bussiness.Remittance;
+import com.thyme.system.entity.bussiness.Returned;
 import com.thyme.system.service.RemittanceService;
 import com.thyme.system.vo.RemittanceVO;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Arslinth
@@ -26,9 +30,21 @@ public class RemittanceServiceImpl implements RemittanceService {
 
     private final RemittanceDao remittanceDao;
 
+    private final ReturnedDao returnedDao;
+
     @Override
     public List<RemittanceVO> getRemittances(String pcpName) {
-        return remittanceDao.getRemittances(pcpName);
+        List<Returned> returnedList = returnedDao.getReturnedListByPcpName(pcpName);
+        List<RemittanceVO> remittances = remittanceDao.getRemittances(pcpName);
+        remittances.stream().map(reVO->{
+            Double totalCost = returnedList.stream().filter(returned -> reVO.getPcpName().equals(returned.getPcpName()))
+                    .map(Returned::getTotalCost)
+                    .reduce(0.0, MoneyUtils::add);
+            reVO.setReturnedCost(totalCost);
+            return reVO;
+        }).collect(Collectors.toList());
+
+        return remittances;
     }
 
     public int addRemittance(Remittance remittance){

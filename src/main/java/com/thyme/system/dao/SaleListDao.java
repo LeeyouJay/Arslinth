@@ -48,4 +48,7 @@ public interface SaleListDao extends BaseMapper<SaleList> {
 
     @Update("UPDATE sale_list SET is_deleted = 0 WHERE id = #{id}")
     int recoverySale(@Param("id") String id);
+
+    @Update("UPDATE sale_list SET pay_type = #{payType},record=#{record},update_time=NOW() WHERE id = #{id}")
+    int changePayType(SaleList saleList);
 }

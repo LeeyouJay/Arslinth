@@ -16,6 +16,7 @@ public class RemittanceVO extends Remittance {
 
     private String pcpName;
 
+    private double returnedCost;
     public RemittanceVO(){
 
     }

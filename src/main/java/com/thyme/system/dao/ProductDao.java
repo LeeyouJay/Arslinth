@@ -62,7 +62,7 @@ public interface ProductDao extends BaseMapper<Product> {
             "<when test=\" cost!= null and cost!= 0\">" +
             ",cost=#{cost} " +
             "</when>" +
-            "<when test=\" numUnit != 1\">" +
+            "<when test=\" numUnit != 1 and numUnit != 0\">" +
             ",num_unit=#{numUnit} " +
             "</when>" +
             "WHERE pd_name = #{pdName}" +
@@ -84,4 +84,8 @@ public interface ProductDao extends BaseMapper<Product> {
 
     @Select("SELECT t.type_name AS type,p.pd_name,p.period_min,p.period_max,p.unit,p.yield,p.height,p.price  FROM product AS p LEFT JOIN type AS t ON p.type_id = t.id ORDER BY t.type_name ")
     List<Product> forExport();
+
+    @Select("SELECT p.* FROM stock AS s LEFT JOIN product AS p ON s.product_id = p.id\n" +
+            "WHERE s.principal_id = #{id}")
+    List<Product> getProductsByPrincipalId(@Param("id")String pcpId);
 }

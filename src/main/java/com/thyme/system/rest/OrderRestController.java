@@ -87,6 +87,15 @@ public class OrderRestController {
         } else
             return ApiResponse.fail("删除出现异常！");
     }
+    @PostMapping("/changePayType")
+    @PreAuthorize("hasAnyRole('ROLE_DEVELOPER','ROLE_MANAGER')")
+    public ApiResponse changePayType(@RequestBody SaleList saleList) {
+        int i = saleListService.changePayType(saleList);
+        if (i > 0) {
+            return ApiResponse.success("修改成功！");
+        } else
+            return ApiResponse.fail("修改出现异常！");
+    }
 
     @GetMapping("/recoveryOrder")
     @PreAuthorize("hasAnyRole('ROLE_DEVELOPER','ROLE_MANAGER')")

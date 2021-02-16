@@ -67,6 +67,58 @@
             </div>
         </div>
 	</body>
+	<div class="layui-fluid" style="display: none;" id="addReturned">
+		<div class="layui-row">
+			<form class="layui-form" action="" id="formAddReturned">
+				<div class="layui-form-item">
+					<label class="layui-form-label">负责人姓名</label>
+					<div class="layui-input-inline">
+						<select name="principalId" lay-filter="principalSelect" lay-verify="required" id="principalId" lay-search >
+	
+						</select>
+					</div>
+					<label class="layui-form-label">品种名称</label>
+					<div class="layui-input-inline layui-required" >
+						<select name="productId" lay-filter="productSelect" lay-verify="required" id="productId" lay-search >
+						
+						</select>
+					</div>
+
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">进货价格</label>
+					<div class="layui-input-inline">
+						<input type="text" name="cost" disabled="" lay-verify="number|required" placeholder="进货价不可更改" autocomplete="off" class="layui-input" id="cost">
+					</div>
+					<label class="layui-form-label">数量(包)</label>
+					<div class="layui-input-inline">
+						<input type="text" name="count"  lay-verify="number|required" placeholder="请输入数量" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+<!-- 				<div class="layui-form-item">
+
+				</div> -->
+				<div class="layui-form-item">
+					<label class="layui-form-label">退货时间</label>
+					<div class="layui-input-inline">
+						<input class="layui-input" lay-verify="required" name="createTime" autocomplete="off"  placeholder="请选择退货日期"  id="createTime"></div>
+				</div>
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">备注</label>
+					<div class="layui-input-inline">
+						<textarea name="remark" placeholder="请输入内容" class="layui-textarea"></textarea>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+			</div>
+		</div>
 <script th:inline="javascript">
 		var context = [[@{
 		    /}]];
@@ -78,70 +130,5 @@
 			"other1":""
 		};
 </script>
-<script type="text/javascript">
-	layui.use(['table','laydate','form'],function() {
-		$ = layui.jquery;
-		var layer = layui.layer;
-		var laydate = layui.laydate;
-		var table = layui.table;
-		var form = layui.form;
-		
-		getTypeList();
-		
-		form.on("submit(search)", function(data) {
-			searchVO = data.field
-			//getStockList()
-			console.log(searchVO);
-			return false
-		});
-		
-		
-		function getPrincipals(){
-			$.ajax({
-				url: context + 'stock/getPrincipals?name=',
-				type: 'GET',
-				async: false,
-				success: function(data) {
-					if(data.code === 200){
-					    var principals = data.data.principals;
-						initPrincipalId(principals)
-					}else{
-						layui.layer.msg(data.message);
-					}
-				}
-			});
-		}
-		function getTypeList(){
-			$.ajax({
-				url: context + 'product/getType',
-				type: 'GET',
-				success: function(res) {
-					if(res.code === 200){
-						var typeData = res.data.typeList;
-						initTableType(typeData);
-						getPrincipals();
-					}else
-						layer.msg(res.message,{icon:2})
-				}
-			});
-		}
-		function initTableType(typeData){
-			$('#type').html();
-			var temp="<option value='' >请选择品种类型</option>"
-			for (var i = 0; i < typeData.length; i++) {
-				temp+=" <option value='" + typeData[i].id + "'>" + typeData[i].typeName + "</option>"
-			}
-			$('#type').append(temp);
-		}
-		
-		function initPrincipalId(principals){
-			var temp="<option value='' >请选择负责人</option>"
-			for (var i = 0; i < principals.length; i++) {
-				temp+=" <option value='" + principals[i].id + "'>" + principals[i].pcpName + "</option>"
-			}
-			$('#principals').append(temp);
-			form.render('select');
-		}
-	})
-</script>
+<script type="text/javascript" th:src="@{/static/js/module/sales/returnList.js}"> </script>
 </html>

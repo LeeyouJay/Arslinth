@@ -4,6 +4,8 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 	var form = layui.form;
 	var laydate = layui.laydate;
 	var element = layui.element;
+	var payTypeList = ['未支付','部分已付','已付清'];
+	
 	laydate.render({
 		elem: '#start'
 	});
@@ -16,6 +18,20 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 	getSales();
 	getDelSales();
 
+	function initPayType(sale){
+		var temp ="";
+		$('#initPayType').html("");
+		$('#saleListId').val(sale.id)
+		for (var i = 0; i < payTypeList.length; i++) {
+			if(sale.payType == payTypeList[i])
+				temp+='<input type="radio" name="payType" value="'+payTypeList[i]+'" title="'+payTypeList[i]+'" checked>'
+			else
+				temp+='<input type="radio" name="payType" value="'+payTypeList[i]+'" title="'+payTypeList[i]+'">'
+		}
+		$('#initPayType').html(temp);
+		form.render('radio');
+	}
+
 	function renderTable(orderList) {
 		table.render({
 			elem: '#tableTest',
@@ -24,8 +40,8 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 				[
 					{type: 'checkbox'},
 					{field: 'id', title: 'ID', hide: true},
-					{field: 'consumer', width: 180, title: '姓名', align: 'center'},
-					{field: 'phone', minWidth: 200, title: '联系电话'},
+					{field: 'consumer', width: 120, title: '姓名', align: 'center'},
+					{field: 'phone', minWidth: 150, title: '联系电话'},
 					{field: 'region', minWidth: 80, title: '地址'},
 					{field: 'createTime', minWidth: 200, title: '交易时间', sort: true},
 					{field: 'totalPrice', minWidth: 50, title: '交易金额', sort: true},
@@ -52,12 +68,15 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 				[
 					{type: 'checkbox'},
 					{field: 'id', title: 'ID', hide: true},
-					{field: 'consumer', width: 180, title: '姓名', align: 'center'},
-					{field: 'phone', minWidth: 200, title: '联系电话'},
+					{field: 'consumer', width: 120, title: '姓名', align: 'center'},
+					{field: 'phone', minWidth: 150, title: '联系电话'},
 					{field: 'createTime', minWidth: 200, title: '交易时间', sort: true},
 					{field: 'totalPrice', minWidth: 50, title: '交易金额', sort: true},
-					{field: 'payType', minWidth: 50, title: '支付方式'},
-					{fixed: 'right', title: '操作', toolbar: '#barDemo1', minWidth: 120, align: 'center'}
+					{field: 'payType', minWidth: 50, title: '支付状态'},
+					{field: 'remark', minWidth: 250, title: '备注'},
+					{field: 'record', minWidth: 150, title: '记录'},
+					{field: 'updateTime', minWidth: 200, title: '上次更新时间'},
+					{fixed: 'right', title: '操作', toolbar: '#barDemo1', minWidth: 220, align: 'center'}
 				]
 			],
 			limit: 20,
@@ -77,8 +96,8 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 			cols: [
 				[
 					{field: 'id', title: 'ID', hide: true},
-					{field: 'consumer', width: 180, title: '姓名', align: 'center'},
-					{field: 'phone', minWidth: 200, title: '联系电话'},
+					{field: 'consumer', width: 120, title: '姓名', align: 'center'},
+					{field: 'phone', minWidth: 150, title: '联系电话'},
 					{field: 'region', minWidth: 80, title: '地址'},
 					{field: 'createTime', minWidth: 200, title: '交易时间', sort: true},
 					{field: 'totalPrice', minWidth: 50, title: '交易金额', sort: true},
@@ -99,14 +118,14 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 			data: orderList,
 			cols: [
 				[
-					{type: 'checkbox'},
 					{field: 'id', title: 'ID', hide: true},
-					{field: 'consumer', width: 180, title: '姓名', align: 'center'},
-					{field: 'phone', minWidth: 200, title: '联系电话'},
+					{field: 'consumer', width: 120, title: '姓名', align: 'center'},
+					{field: 'phone', minWidth: 150, title: '联系电话'},
 					{field: 'createTime', minWidth: 200, title: '交易时间', sort: true},
 					{field: 'totalPrice', minWidth: 50, title: '交易金额', sort: true},
-					{field: 'payType', minWidth: 50, title: '支付方式'},
-					{fixed: 'right', title: '操作', toolbar: '#barDemo3', minWidth: 120, align: 'center'}
+					{field: 'payType', minWidth: 50, title: '支付状态'},
+					{field: 'remark', minWidth: 250, title: '备注'},
+					{fixed: 'right', title: '操作', toolbar: '#barDemo3', minWidth: 220, align: 'center'}
 				]
 			],
 			limit: 20,
@@ -320,9 +339,37 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 			}
 		});
 	}
+	function changePayType(sale){
+		$.ajax({
+			cache: true,
+			type: "POST",
+			url: context + 'order/changePayType',
+			data: JSON.stringify(sale),
+			dataType: 'json',
+			contentType: 'application/json',
+			error: function(res) {
+				if(res.status ===403){
+					layer.msg("您没有足够的权限！",{icon:2})
+				}else
+					layer.alert("Connection error");
+			},
+			success: function(data) {
+				if(data.code === 200){
+					layer.msg(data.message, {
+						icon: 1,
+						time: 2000
+					}, function() {
+						$("#formEdit")[0].reset();
+						layer.close(index);
+						getSales();
+					});
+				}else
+					layer.msg(data.message,{icon:2})
+			}
+		});
+	}
 
 	element.on('tab(element)', function (data) {
-		console.log(data.index)
 		switch (data.index) {
 			case 0:
 				getOrders();
@@ -347,7 +394,11 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 		getDelSales();
 		return false
 	});
-
+	form.on('submit(formDemo)', function(data) {
+		var sale = data.field;
+		changePayType(sale);
+		return false;
+	});
 	table.on('tool(test)', function (obj) {
 		var layEvent = obj.event;
 		var data = obj.data;
@@ -362,6 +413,7 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 				break;
 		}
 	});
+	var index;
 	table.on('tool(test1)', function (obj) {
 		var layEvent = obj.event;
 		var data = obj.data;
@@ -373,6 +425,19 @@ layui.use(['table', 'form', 'laydate', 'element'], function () {
 				layer.confirm('确认要将此订单恢复吗？', function (res) {
 					recoverySale(data.id)
 				});
+				break;
+			case 'salesEdit':
+				initPayType(data)
+				index=layer.open({
+							type:1,
+							area: ['500px', '300px'],
+							fix: false, //不固定
+							maxmin: true,
+							shadeClose: true,
+							shade:0.4,
+							title:"修改",
+							content:$('#edit')
+						});
 				break;
 		}
 	});

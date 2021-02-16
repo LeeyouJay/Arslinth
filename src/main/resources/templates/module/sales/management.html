@@ -80,11 +80,41 @@
             </div>
         </div>
     </body>
+	<div class="layui-fluid" style="display: none;" id="edit">
+		<div class="layui-row">
+			<form class="layui-form" action="" id="formEdit">
+				<input name="id" type="hidden" id="saleListId" />
+				<div class="layui-form-item">
+					<label class="layui-form-label">支付状态</label>
+					<div class="layui-input-block" lay-filter="formRadio" id="initPayType">
+						<!-- <input type="radio" name="payType" value="男" title="男">
+						<input type="radio" name="payType" value="女" title="女" checked>
+						<input type="radio" name="payType" value="男" title="男"> -->
+					</div>
+				</div>
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">记录</label>
+					<div class="layui-input-inline">
+						<textarea name="record" placeholder="请输入内容" class="layui-textarea"></textarea>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+			</div>
+		</div>
+	
     <script type="text/html" id="barDemo">
         <a class="layui-btn layui-btn-sm" lay-event="orderDetails"><i class="iconfont">&#xe69e;</i>&nbsp;交易明细</a>
     </script>
 	<script type="text/html" id="barDemo1">
 	    <a class="layui-btn layui-btn-sm" lay-event="salesDetails"><i class="iconfont">&#xe69e;</i>&nbsp;交易明细</a>
+		  <a class="layui-btn layui-btn-sm" lay-event="salesEdit"><i class="iconfont">&#xe69e;</i>&nbsp;修改</a>
 	</script>
     <script type="text/html" id="barDemo2">
         <a class="layui-btn layui-btn-sm" lay-event="orderDetails"><i class="iconfont">&#xe69e;</i>&nbsp;交易明细</a>

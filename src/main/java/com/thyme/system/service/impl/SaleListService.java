@@ -41,4 +41,9 @@ public class SaleListService {
     public int recoverySale(String id) {
         return saleListDao.recoverySale(id);
     }
+    public int changePayType(SaleList saleList){
+        return  saleListDao.changePayType(saleList);
+    }
+
+
 }

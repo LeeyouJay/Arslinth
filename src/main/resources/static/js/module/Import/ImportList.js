@@ -309,7 +309,6 @@
 			}
 			function deleteStocks(ids){
 				$.ajax({
-					cache: true,
 					type: "POST",
 					url: context + 'stock/deleteStocks',
 					data: JSON.stringify(ids),

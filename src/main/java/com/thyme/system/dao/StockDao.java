@@ -29,7 +29,6 @@ public interface StockDao extends BaseMapper<Stock> {
             "FROM stock AS stock " +
             "LEFT JOIN principal AS prin ON stock.principal_id = prin.id " +
             "LEFT JOIN product AS pd ON stock.product_id = pd.id " +
-            "LEFT JOIN type AS t ON t.id = pd.type_id " +
             "WHERE 1=1" +
             "<choose>"+
             "<when test=\" start != '' and end != ''\"> " +
@@ -46,7 +45,7 @@ public interface StockDao extends BaseMapper<Stock> {
                 "AND stock.principal_id = #{principalId} " +
             "</when>" +
             "<when test=\" typeId != null and typeId != ''\"> " +
-            "AND t.id=#{typeId} " +
+            "AND pd.type_id=#{typeId} " +
             "</when>" +
             "<when test=\" pdName != null and pdName != ''\"> " +
             "AND pd.pd_name LIKE CONCAT('%',#{pdName},'%') " +
